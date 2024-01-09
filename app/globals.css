@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+.top-card {
+  height: 700px;
+}
+.po {
+  background-color: aqua;
+}
+.gap-4,
+.bg-popover {
+  background-color: #ffffff !important;
+}
