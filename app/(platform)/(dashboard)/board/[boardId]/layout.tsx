@@ -41,7 +41,7 @@ const BoardIdLayout = async ({
   const orgId = "2020";
 
   if (!orgId) {
-    redirect("/board");
+    redirect("/board/setting");
   }
 
   const board = await db.board.findUnique({

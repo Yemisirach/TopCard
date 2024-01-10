@@ -38,18 +38,25 @@ model List {
 }
 
 model Card {
-  id          String @id @default(uuid())
+  id          String    @id @default(uuid()) 
   title       String
   order       Int
-  description String? @db.Text
+  description String?  @db.Text
 
   listId      String
-  list        List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+  list        List      @relation(fields: [listId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  checklist   ChecklistItem[]
   @@index([listId])
+}
+
+model ChecklistItem {
+  id      String   @id @default(uuid())
+  cardId  String
+  checked Boolean
+  card    Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
 }
 
 enum ACTION {
@@ -79,21 +86,11 @@ model AuditLog {
   updatedAt   DateTime  @updatedAt
 }
 
-model OrgLimit {
-  id          String @id @default(uuid())
-  orgId       String @unique
-  count       Int @default(0)
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime  @updatedAt
+model Organization {
+  id      Int      @id @default(autoincrement())
+  name    String
+  profileImage   String?  
+  
 }
 
-model OrgSubscription {
-  id                String @id @default(uuid())
-  orgId             String @unique
 
-  stripeCustomerId  String? @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId String? @unique @map(name: "stripe_subscription_id")
-  stripePriceId        String? @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
-}
