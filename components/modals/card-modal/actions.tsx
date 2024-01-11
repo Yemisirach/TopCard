@@ -1,7 +1,15 @@
 "use client";
 
 import { toast } from "sonner";
-import { CheckIcon, Copy, Trash } from "lucide-react";
+import {
+  CheckIcon,
+  CheckSquare,
+  Clock,
+  ContactIcon,
+  Copy,
+  FileAxis3D,
+  Trash,
+} from "lucide-react";
 import { useParams } from "next/navigation";
 
 import { CardWithList } from "@/types";
@@ -13,6 +21,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useCardModal } from "@/hooks/use-card-modal";
 import { executeCheckList } from "@/actions/check-list";
 import { useState } from "react";
+import DueDateModal from "./date";
 
 interface ActionsProps {
   data: CardWithList;
@@ -52,12 +61,6 @@ export const Actions = ({ data }: ActionsProps) => {
     setCheckedItems(newCheckedItems);
   };
 
-  //   const initialCheckedItems = Array.isArray(data.checklist)
-  //   ? new Set(data.checklist.map((item) => item.id))
-  //   : new Set();
-
-  // const [checkedItems, setCheckedItems] = useState<Set<string>>(initialCheckedItems);
-
   const { execute: executeCopyCard, isLoading: isLoadingCopy } = useAction(
     copyCard,
     {
@@ -84,18 +87,6 @@ export const Actions = ({ data }: ActionsProps) => {
     }
   );
 
-  // const { execute: executeCheckList, isLoading: isLoadingChecklist } =
-  //   useAction(executeCheckList, {
-  //     onSuccess: (data) => {
-  //       // Assuming the checklist action returns relevant success information
-  //       toast.success(`Checklist for card "${data.title}" executed`);
-  //       cardModal.onClose();
-  //     },
-  //     onError: (error) => {
-  //       toast.error(error);
-  //     },
-  //   });
-
   const onCopy = () => {
     const boardId = params.boardId as string;
 
@@ -112,6 +103,11 @@ export const Actions = ({ data }: ActionsProps) => {
       id: data.id,
       boardId,
     });
+  };
+  const [isDueDateModalOpen, setDueDateModalOpen] = useState(false);
+
+  const onDate = () => {
+    setDueDateModalOpen(true);
   };
   const onCheckList = () => {
     const boardId = params.boardId as string;
@@ -137,6 +133,43 @@ export const Actions = ({ data }: ActionsProps) => {
 
   return (
     <div className="space-y-2 mt-2">
+      <p className="text-xs font-semibold">Add to card</p>
+      <Button
+        onClick={onCopy}
+        disabled={isLoadingCopy}
+        variant="gray"
+        className="w-full justify-start"
+        size="inline"
+      >
+        <ContactIcon className="h-4 w-4 mr-2" /> Members
+      </Button>
+      <Button
+        onClick={onCopy}
+        disabled={isLoadingCopy}
+        variant="gray"
+        className="w-full justify-start"
+        size="inline"
+      >
+        <CheckSquare className="h-4 w-4 mr-2" /> Checklist
+      </Button>
+      <Button
+        onClick={onDate}
+        disabled={isLoadingCopy}
+        variant="gray"
+        className="w-full justify-start"
+        size="inline"
+      >
+        <Clock className="h-4 w-4 mr-2" /> Dates
+      </Button>
+      <Button
+        onClick={onCopy}
+        disabled={isLoadingCopy}
+        variant="gray"
+        className="w-full justify-start"
+        size="inline"
+      >
+        <FileAxis3D className="h-4 w-4 mr-2" /> Attachment
+      </Button>
       <p className="text-xs font-semibold">Actions</p>
       <Button
         onClick={onCopy}
