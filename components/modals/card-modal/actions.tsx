@@ -23,12 +23,40 @@ export const Actions = ({ data }: ActionsProps) => {
   const cardModal = useCardModal();
   const [showChecklist, setShowChecklist] = useState(false);
 
-//   const initialCheckedItems = Array.isArray(data.checklist)
-//   ? new Set(data.checklist.map((item) => item.id))
-//   : new Set();
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
-// const [checkedItems, setCheckedItems] = useState<Set<string>>(initialCheckedItems);
+  const handleCheckboxChange = (id: string) => {
+    const newCheckedItems = [...checkedItems];
 
+    const checkboxElement = document.getElementById(id); // Assuming your checkboxes have ids corresponding to their ids
+
+    if (newCheckedItems.includes(id)) {
+      // Item is already checked, remove it
+      const index = newCheckedItems.indexOf(id);
+      newCheckedItems.splice(index, 1);
+
+      // If you want to style the checkbox element when unchecked
+      if (checkboxElement) {
+        checkboxElement.style.borderBottom = "2px solid #000";
+      }
+    } else {
+      // Item is not checked, add it
+      newCheckedItems.push(id);
+
+      // If you want to remove the style when checked
+      if (checkboxElement) {
+        checkboxElement.style.borderBottom = "none";
+      }
+    }
+
+    setCheckedItems(newCheckedItems);
+  };
+
+  //   const initialCheckedItems = Array.isArray(data.checklist)
+  //   ? new Set(data.checklist.map((item) => item.id))
+  //   : new Set();
+
+  // const [checkedItems, setCheckedItems] = useState<Set<string>>(initialCheckedItems);
 
   const { execute: executeCopyCard, isLoading: isLoadingCopy } = useAction(
     copyCard,
@@ -157,6 +185,72 @@ export const Actions = ({ data }: ActionsProps) => {
               </label>
             </div>
           ))} */}
+          <div className="flex flex-col">
+            <div
+              className={`flex items-center ${
+                checkedItems.includes("checkbox1")
+                  ? "line-through text-gray-500"
+                  : ""
+              }`}
+            >
+              <input
+                className="mr-2"
+                type="checkbox"
+                id="checkbox1"
+                checked={checkedItems.includes("checkbox1")}
+                onChange={() => handleCheckboxChange("checkbox1")}
+              />
+              Import machine
+            </div>
+            <div
+              className={`flex items-center ${
+                checkedItems.includes("checkbox2")
+                  ? "line-through text-gray-500"
+                  : ""
+              }`}
+            >
+              <input
+                className="mr-2"
+                type="checkbox"
+                id="checkbox2"
+                checked={checkedItems.includes("checkbox2")}
+                onChange={() => handleCheckboxChange("checkbox2")}
+              />
+              top1 raw material
+            </div>
+            <div
+              className={`flex items-center ${
+                checkedItems.includes("checkbox3")
+                  ? "line-through text-gray-500"
+                  : ""
+              }`}
+            >
+              <input
+                className="mr-2"
+                type="checkbox"
+                id="checkbox3"
+                checked={checkedItems.includes("checkbox3")}
+                onChange={() => handleCheckboxChange("checkbox3")}
+              />
+              top2 raw material
+            </div>
+            <div
+              className={`flex items-center ${
+                checkedItems.includes("checkbox4")
+                  ? "line-through text-gray-500"
+                  : ""
+              }`}
+            >
+              <input
+                className="mr-2"
+                type="checkbox"
+                id="checkbox4"
+                checked={checkedItems.includes("checkbox4")}
+                onChange={() => handleCheckboxChange("checkbox4")}
+              />
+              Import machine
+            </div>
+          </div>
         </div>
       )}
     </div>
