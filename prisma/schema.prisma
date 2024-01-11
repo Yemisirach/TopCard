@@ -5,6 +5,77 @@ generator client {
     provider = "postgresql"
     url      = env("DATABASE_URL")
   }
+
+  
+model User {
+  id                    String                 @id @default(cuid())
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  name                  String?
+  password              String?
+  isTwoFactorEnabled    Boolean                @default(false)
+  role                  UserRole               @default(USER)
+  orgname               String?                // Added orgname field
+  accounts              Account[]
+  twoFactorConfirmation TwoFactorConfirmation?
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  token   String   @unique
+  expires DateTime
+  email   String
+  id      String   @id @default(cuid())
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
 model Board {
   id            String @id @default(uuid())
   orgId         String
