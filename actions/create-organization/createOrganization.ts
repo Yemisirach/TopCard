@@ -8,7 +8,7 @@ import { OrganizationSchema } from "./schema";
 import { InputType, ReturnType } from "./types";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { name, profileImage } = data;
+  const { id, name, profileImage } = data;
 
   if (!name) {
     return {
@@ -21,6 +21,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   try {
     organization = await db.organization.create({
       data: {
+        id,
         name,
         profileImage, 
       },

@@ -12,7 +12,7 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LogoutButton } from "@/components/auth/logout-button";
-import { Link } from "lucide-react";
+import OrganizationSwitcher from "./OrganizationSwitcher";
 
 export const UserButton = () => {
   const user = useCurrentUser();
@@ -34,6 +34,11 @@ export const UserButton = () => {
             Logout
           </DropdownMenuItem>
         </LogoutButton>
+        <OrganizationSwitcher
+        // organizations={organizations}
+        // selectedOrganization={selectedOrganization}
+        // onSelectOrganization={handleSelectOrganization}
+        />
         <a href="/settings">⚙️ Settings</a>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -63,10 +63,7 @@ export const OrgSchema = z.object({
   orgname: z.string().min(1, {
     message: "Name is required",
   }),
-  role: z.enum([UserRole.ADMIN, UserRole.USER], {
-    // message: "Role is required and should be either 'ADMIN' or 'USER'",
-  }),
-  Image: z.optional(z.string()),
+  profileImage: z.optional(z.string()),
 });
 
 export const RegisterSchema = z.object({

@@ -8,7 +8,7 @@ import { FormPopover } from "@/components/form/form-popover";
 
 export const Navbar = async () => {
   const user = await currentUser();
-  console.log(user, "yemit");
+  // console.log(user, "yemit");
   const isLoggedIn = user?.isOAuth == true;
   return (
     <div className="top-nav fixed top-0 w-full h-14 px-4 border-b shadow-md bg-gray-100 flex items-center">
