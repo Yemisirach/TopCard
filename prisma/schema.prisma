@@ -15,7 +15,7 @@ model User {
   name                  String?
   password              String?
   isTwoFactorEnabled    Boolean                @default(false)
-  role                  UserRole               @default(USER)
+  role                  UserRole               @default(ADMIN)
   orgname               String?                // Added orgname field
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?

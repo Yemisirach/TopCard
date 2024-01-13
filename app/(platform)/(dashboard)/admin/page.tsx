@@ -202,8 +202,8 @@
 // export default AdminPage;
 
 import React, { useState } from "react";
-import OrganizationForm from "@/components/auth/organizationForm";
-import OrganizationList from "@/components/auth/organizationForm";
+import OrganizationForm from "@/app/api/organizations";
+import OrganizationList from "@/app/api/organizations";
 import { Organization, UserRole } from "@prisma/client";
 import OrganizationSwitcher from "@/components/auth/OrganizationSwitcher";
 import { RoleGate } from "@/components/auth/role-gate";
@@ -233,19 +233,20 @@ const CreateOrganizationPage: React.FC = () => {
   };
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 pt-10">
       <div className="h-[500px] w-[380px] m-auto align-middle">
-        <RoleGate allowedRole={UserRole.ADMIN}>
+        {/* <RoleGate allowedRole={UserRole.ADMIN}>
           <FormSuccess message="You are allowed to see this content!" />
-        </RoleGate>
+        </RoleGate> */}
         <p className="text-lg flex align-middle w-[380px] font-medium"></p>
 
         <OrganizationForm onCreateOrganization={handleCreateOrganization} />
         {/* <OrganizationSwitcher
-        organizations={organizations}
-        selectedOrganization={selectedOrganization}
-        onSelectOrganization={handleSelectOrganization}
-      /> */}
+          organizations={organizations}
+          selectedOrganization={
+            selectedOrganization}
+          onSelectOrganization={handleSelectOrganization}
+        /> */}
         {/* <OrganizationList organizations={organizations} /> */}
       </div>
     </div>

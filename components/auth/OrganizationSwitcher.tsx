@@ -1,5 +1,6 @@
-import React from 'react';
-import Organization from './OrganizationModel';
+import { Organization } from "@prisma/client";
+import React from "react";
+// import Organization from './OrganizationModel';
 
 interface OrganizationSwitcherProps {
   organizations: Organization[];
@@ -18,10 +19,12 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
       <label>
         Select Organization:
         <select
-          value={selectedOrganization ? selectedOrganization.id : ''}
+          value={selectedOrganization ? selectedOrganization.id : ""}
           onChange={(e) => {
             const selectedId = e.target.value;
-            const selectedOrg = organizations.find((org) => org.id === Number(selectedId));
+            const selectedOrg = organizations.find(
+              (org) => org.id === Number(selectedId)
+            );
             if (selectedOrg) {
               onSelectOrganization(selectedOrg);
             }
@@ -30,7 +33,7 @@ const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = ({
           <option value="" disabled>
             Select an organization
           </option>
-          {organizations.map((organization) => (
+          {organizations?.map((organization) => (
             <option key={organization.id} value={organization.id}>
               {organization.name}
             </option>
