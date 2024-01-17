@@ -9,7 +9,7 @@ const font = Poppins({
 import localFont from "next/font/local";
 import { Medal } from "lucide-react";
 import { Topbg } from "@/components/topbg";
-
+import Link from "next/link";
 const headingFont = localFont({
   src: "../public/fonts/font.woff2",
 });
@@ -58,6 +58,9 @@ export default function Home() {
             Get started
           </Button>
         </LoginButton>
+        <Link href="/workspaces/create">
+          <div>Create New Workspace</div>
+        </Link>
       </div>
       <div>
         <Topbg />

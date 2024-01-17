@@ -64,9 +64,12 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
           variant="ghost"
           className="ml-auto"
         >
-          <Link href="/organization/id">
+          <Link href="/workspaces/create">
             <Plus className="h-4 w-4" />
           </Link>
+          {/* <Link href="">
+            <Plus className="h-4 w-4" />
+  </Link> */}
         </Button>
       </div>
       <Accordion
