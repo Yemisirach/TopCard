@@ -9,7 +9,6 @@ interface OrganizationFormProps {
   onCreateOrganization: (newOrganization: Organization) => void;
 }
 
-
 const organizations: React.FC<OrganizationFormProps> = ({
   onCreateOrganization,
 }) => {
@@ -30,13 +29,12 @@ const organizations: React.FC<OrganizationFormProps> = ({
       }
 
       const response = await axios.post(
-        "http://localhost:3001/api/organizations", // Update the URL
+        "http://localhost:3000/api/organizations", // Update the URL
         {
           name: organizationName,
           imageUrl: imageUrl,
         }
       );
-      
 
       console.log(response, "resp");
       // Get the created organization from the response

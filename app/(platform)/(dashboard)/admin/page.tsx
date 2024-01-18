@@ -203,11 +203,11 @@
 
 import React, { useState } from "react";
 import OrganizationForm from "@/app/api/organizations";
-import OrganizationList from "@/app/api/organizations";
+// import OrganizationList from "@/app/api/organizations";
 import { Organization, UserRole } from "@prisma/client";
-import OrganizationSwitcher from "@/components/auth/OrganizationSwitcher";
-import { RoleGate } from "@/components/auth/role-gate";
-import { FormSuccess } from "@/components/form-success";
+// import OrganizationSwitcher from "@/components/auth/OrganizationSwitcher";
+// import { RoleGate } from "@/components/auth/role-gate";
+// import { FormSuccess } from "@/components/form-success";
 import { redirect } from "next/navigation";
 
 const CreateOrganizationPage: React.FC = () => {
@@ -227,10 +227,10 @@ const CreateOrganizationPage: React.FC = () => {
     redirect(`/organization/${orgId}`);
   };
 
-  const handleSelectOrganization = (organization: Organization) => {
-    // Set the selected organization
-    setSelectedOrganization(organization);
-  };
+  // const handleSelectOrganization = (organization: Organization) => {
+  //   // Set the selected organization
+  //   setSelectedOrganization(organization);
+  // };
 
   return (
     <div className="mt-20 pt-10">

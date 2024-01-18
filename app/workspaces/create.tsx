@@ -1,11 +1,12 @@
-// pages/workspaces/create.tsx
+// app/workspaces/create.tsx
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
 import { UploadIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { ChangeEvent } from 'react';
 
-interface Workspace {
+interface Workspaces {
   id: number;
   name: string;
   profileImage: string | null;
@@ -16,18 +17,18 @@ export default function CreateWorkspace() {
 
   const createWorkspace = async () => {
     try {
+      const formData = new FormData();
+      formData.append("workspaceName", workspaceName);
+      formData.append("profileImage", selectedFile || ""); // Add the profileImage field
+
       const response = await fetch("/api/workspaces/create", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ workspaceName }),
+        body: formData,
       });
-      console.log(response, "response");
 
       if (response.ok) {
-        const newWorkspace = await response.json();
-        router.push(`/workspaces/${newWorkspace.id}`);
+        const newWorkspaceData = await response.json();
+        router.push(`/workspaces/${newWorkspaceData.id}`);
       } else {
         console.error("Error creating workspace:", response.statusText);
       }
