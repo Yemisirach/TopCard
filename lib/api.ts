@@ -17,7 +17,7 @@ export const createOrganization = async ({
     const orgId = generateUniqueOrgId();
 
     // Save the organization details to the Prisma database
-    const createdOrganization = await db.organization.create({
+    const createdOrganization = await db.Organization.create({
       data: {
         name,
         profileImage,
@@ -36,8 +36,9 @@ export const createOrganization = async ({
     return response.data;
   } catch (error) {
     throw new Error(
-        error.response?.data?.error 
-        || "An error occurred");
+        // error.response?.data?.error 
+        // ||
+         "An error occurred");
   }
 };
 

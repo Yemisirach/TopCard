@@ -1,47 +1,30 @@
-"use server";
-
+// server.ts
+import express from "express";
+import cors from "cors";
 import { db } from "@/lib/db";
-import { Request, Response } from "express";
 
-const express = require("express");
-const cors = require("cors");
-
-// Create an instance of Express
 const app = express();
 
-// Middleware to parse JSON requests
 app.use(express.json());
+app.use(cors());
 
-// CORS middleware configuration
-app.use(
-  cors({
-    origin: "http://localhost:3001", // Adjust this based on the actual URL of your Next.js app during development
-    credentials: true,
-  })
-);
-// http://localhost:3000/api/organizations
-
-// Route for creating organizations
-app.post("/api/organizations", async (req: Request, res: Response) => {
+app.post("/api/organizations", async (req, res) => {
   try {
     const { name, profileImage } = req.body;
 
-    // Validate the request data
     if (!name) {
       return res
         .status(400)
         .json({ error: "Please provide organization name" });
     }
 
-    // Create a new organization in the database using Prisma
-    const newOrganization = await db.organization.create({
+    const newOrganization = await db.Organization.create({
       data: {
         name,
         profileImage,
       },
     });
 
-    // Respond with the created organization
     return res.status(201).json(newOrganization);
   } catch (error) {
     console.error("Error creating organization:", error);
@@ -49,8 +32,7 @@ app.post("/api/organizations", async (req: Request, res: Response) => {
   }
 });
 
-// Start the Express server
-const PORT = 3001; // Update the port number
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

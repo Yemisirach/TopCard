@@ -7,88 +7,72 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// schema.prisma
 enum UserRole {
   ADMIN
   SUPERADMIN
   USER
 }
+
 model User {
-  id                    String                 @id @default(cuid())
-  email                 String?                @unique
+  id                    String                @id @default(cuid())
+  email                 String?               @unique
   emailVerified         DateTime?
   name                  String?
-  image                  String?
+  image                 String?
   password              String?
-  isTwoFactorEnabled    Boolean                @default(false)
+  isTwoFactorEnabled    Boolean               @default(false)
   role                  UserRole              @default(ADMIN)
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
 }
-// model User {
-//   id                    String                   @id @default(uuid())
-//   email                 String                   @unique
-//     emailVerified         DateTime?
-//   password              String?
-//   name                  String                   // Add this line for the name field
-//   role                  UserRole[] 
-//   isTwoFactorEnabled    Boolean                @default(false)
-//   auditLogs             AuditLog[]
-//   workspaces            UserWorkspace[]
-//   boards               BoardMember[]
-//   accounts             Account[]
-//   twoFactorConfirmation TwoFactorConfirmation?
-// }
 
+model Organization {
+  id            String @id @default(uuid())
+  name          String
+  profileImage  String?
+}
 
-// model Organization {
-//   id      Int      @id @default(autoincrement())
-//   name    String
-//   profileImage   String?  
-  
-// }
 model Workspace {
-  id      String @id @default(uuid())
-  name    String
-  profileImage   String?  
-  members UserWorkspace[]
-  boards  Board[]
+  id            String @id @default(uuid())
+  name          String
+  profileImage  String?
+  members       UserWorkspace[]
+  boards        Board[]
 }
 
 model UserWorkspace {
-  userId      String
-  workspaceId String
-  role        String
-  accepted    Boolean
-  workspace  Workspace @relation(fields: [workspaceId], references: [id])
+  userId        String
+  workspaceId   String
+  role          UserRole            // Updated to use the UserRole enum
+  accepted      Boolean
+  workspace     Workspace           @relation(fields: [workspaceId], references: [id])
   @@id([userId, workspaceId])
   @@unique([userId, workspaceId])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
-
 model Board {
-    id      String @id @default(uuid())
-  title   String
-imageId       String
+  id            String @id @default(uuid())
+  title         String
+  imageId       String
   imageThumbUrl String @db.Text
   imageFullUrl  String @db.Text
   imageUserName String @db.Text
   imageLinkHTML String @db.Text
-  workspaceId String
-  workspace   Workspace @relation(fields: [workspaceId], references: [id])
-  members     BoardMember[]
-  lists       List[]
+  workspaceId   String
+  workspace     Workspace           @relation(fields: [workspaceId], references: [id])
+  members       BoardMember[]
+  lists         List[]
 
   @@index([workspaceId])
 }
 
 model BoardMember {
-    id    String @id @default(uuid())
+  id      String @id @default(uuid())
   userId  String
   boardId String
-  board Board @relation(fields: [boardId], references: [id])
+  board   Board                   @relation(fields: [boardId], references: [id])
   @@unique([userId, boardId])
 }
 
