@@ -1,14 +1,12 @@
 // api/workspaces.ts
-
 import { db } from "@/lib/db";
 
 export const fetchUserWorkspaces = async (userId: string) => {
   try {
-    // Replace this query with your actual Prisma query to fetch user workspaces
     const userWorkspaces = await db.user.findUnique({
       where: { id: userId },
       include: {
-        members: {
+        workspaces: {
           include: {
             workspace: true,
           },
@@ -20,8 +18,13 @@ export const fetchUserWorkspaces = async (userId: string) => {
       throw new Error("User not found");
     }
 
-    return userWorkspaces.members.map((member) => member.workspace);
-  } catch (error) {
+    const workspaces =
+      userWorkspaces.workspaces?.map(
+        (userWorkspace) => userWorkspace.workspace
+      ) || [];
+    return workspaces;
+  } catch (error: any) {
+    // Assuming 'error' is an instance of the 'Error' class
     throw new Error(`Error fetching user workspaces: ${error.message}`);
   }
 };

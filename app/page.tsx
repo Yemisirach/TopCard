@@ -58,7 +58,7 @@ export default function Home() {
             Get started
           </Button>
         </LoginButton>
-        <Link href="/workspaces/create">
+        <Link href="/workspaces">
           <div>Create New Workspace</div>
         </Link>
       </div>

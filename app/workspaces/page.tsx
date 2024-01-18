@@ -1,10 +1,11 @@
 // app/workspaces/create.tsx
+"use client";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { UploadIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
 interface Workspaces {
   id: number;
@@ -60,7 +61,7 @@ export default function CreateWorkspace() {
   };
 
   return (
-    <div>
+    <div className="mt-20">
       {/* <h1>Create a Workspace</h1>
       <input
         type="text"
@@ -68,7 +69,7 @@ export default function CreateWorkspace() {
         value={workspaceName}
         onChange={(e) => setWorkspaceName(e.target.value)}
       /> */}
-      <button onClick={createWorkspace}>Create Workspace</button>
+      {/* <button onClick={createWorkspace}>Create Workspace</button> */}
       <Card className="bg-white m-auto flex align-middle justify-center h-[400px] w-[380px] border-gray-500">
         <div className="h-[500px]  flex justify-center align-middle mt-7">
           <div className="w-[327px] p-4 align-middle flex flex-col">
@@ -119,7 +120,7 @@ export default function CreateWorkspace() {
               </div>
             </div>
             <label className="mb-3">
-              Organization Name:
+                Workspace Name:
               <input
                 className="w-[295px] orginput border-gray-600 Top-inputs p-3"
                 type="text"
