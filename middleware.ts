@@ -51,32 +51,32 @@ export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
 
-import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+// import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+// import { getSession } from "next-auth/react";
 
-export const checkAccessControl: NextApiHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  try {
-    const session = await getSession({ req });
+// export const checkAccessControl: NextApiHandler = async (
+//   req: NextApiRequest,
+//   res: NextApiResponse
+// ) => {
+//   try {
+//     const session = await getSession({ req });
 
-    if (!session) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
+//     if (!session) {
+//       return res.status(401).json({ error: "Unauthorized" });
+//     }
 
-    // Assuming the user role is stored in the session
-    const userRole = session.user.role;
+//     // Assuming the user role is stored in the session
+//     const userRole = session.user.role;
 
-    // Implement your access control logic based on the user's role
-    if (userRole !== "admin") {
-      return res.status(403).json({ error: "Forbidden" });
-    }
+//     // Implement your access control logic based on the user's role
+//     if (userRole !== "admin") {
+//       return res.status(403).json({ error: "Forbidden" });
+//     }
 
-    // If the user has the required role, proceed to the next handler
-    // You can call the next handler directly here if needed
-  } catch (error) {
-    console.error("Error checking access control:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+//     // If the user has the required role, proceed to the next handler
+//     // You can call the next handler directly here if needed
+//   } catch (error) {
+//     console.error("Error checking access control:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// };

@@ -33,7 +33,7 @@ export const Navbar = async () => {
                   data-testid="bignav-tab"
                   className="pl-7 flex items-center text-center Tabsstyles__Tab-sc-1grh34k-1 fvBJJk"
                 >
-                  Workspace
+                  <Link href="/workspaces">Workspace</Link>
                   <svg
                     className="pl-2"
                     fill="currentColor"

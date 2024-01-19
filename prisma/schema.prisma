@@ -24,13 +24,16 @@ model User {
   role                  UserRole              @default(ADMIN)
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
+ auditLogs     AuditLog[]
+  workspaces   UserWorkspace[]
+  boards       BoardMember[]
 }
 
-model Organization {
-  id            String @id @default(uuid())
-  name          String
-  profileImage  String?
-}
+// model Organization {
+//   id            String @id @default(uuid())
+//   name          String
+//   profileImage  String?
+// }
 
 model Workspace {
   id            String @id @default(uuid())
@@ -43,10 +46,10 @@ model Workspace {
 model UserWorkspace {
   userId        String
   workspaceId   String
-  role          UserRole            // Updated to use the UserRole enum
+  role          UserRole          
   accepted      Boolean
-  workspace     Workspace           @relation(fields: [workspaceId], references: [id])
-  @@id([userId, workspaceId])
+  user          User         @relation(fields: [userId], references: [id])
+  workspace     Workspace    @relation(fields: [workspaceId], references: [id]) 
   @@unique([userId, workspaceId])
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -72,6 +75,7 @@ model BoardMember {
   id      String @id @default(uuid())
   userId  String
   boardId String
+  user  User  @relation(fields: [userId], references: [id])
   board   Board                   @relation(fields: [boardId], references: [id])
   @@unique([userId, boardId])
 }
@@ -128,6 +132,7 @@ model AuditLog {
   entityTitle String
 userImage   String @db.Text
   userName    String @db.Text
+  user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

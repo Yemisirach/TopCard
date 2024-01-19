@@ -1,25 +1,26 @@
-// // import { OrganizationProfile } from "@clerk/nextjs";
+// import { OrganizationProfile } from "@clerk/nextjs";
 
-// const SettingsPage = () => {
-//   return (
-//     <div className="w-full">
-//      <OrganizationProfile
-//       appearance={{
-//         elements: {
-//           rootBox: {
-//             boxShadow: "none",
-//             width: "100%"
-//           },
-//           card: {
-//             border: "1px solid #e5e5e5",
-//             boxShadow: "none",
-//             width: "100%"
-//           }
-//         }
-//       }}
-//      />
-//     </div>
-//   );
-// };
+const SettingsPage = () => {
+  return (
+    <div className="w-full">
+      {/* <OrganizationProfile
+      appearance={{
+        elements: {
+          rootBox: {
+            boxShadow: "none",
+            width: "100%"
+          },
+          card: {
+            border: "1px solid #e5e5e5",
+            boxShadow: "none",
+            width: "100%"
+          }
+        }
+      }} */}
+      {/* /> */}
+      hi top
+    </div>
+  );
+};
 
-// export default SettingsPage;
+export default SettingsPage;

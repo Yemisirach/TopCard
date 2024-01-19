@@ -71,13 +71,13 @@ const SettingsPage = () => {
   };
 
   return (
-    <Card className="w-[600px]">
+    <Card className="bg-white m-auto mt-20 pt-10 w-[600px]">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">⚙️ Settings</p>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-4">
               <FormField
                 control={form.control}
@@ -190,7 +190,7 @@ const SettingsPage = () => {
                       </FormControl>
                       <SelectContent>
                         <SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
-                        <SelectItem value={UserRole.ADMIN}>
+                        <SelectItem value={UserRole.SUPERADMIN}>
                           super Admin
                         </SelectItem>
                         <SelectItem value={UserRole.USER}>User</SelectItem>

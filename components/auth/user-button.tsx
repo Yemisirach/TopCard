@@ -12,7 +12,7 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { LogoutButton } from "@/components/auth/logout-button";
-import OrganizationSwitcher from "./OrganizationSwitcher";
+// import OrganizationSwitcher from "./OrganizationSwitcher";
 
 export const UserButton = () => {
   const user = useCurrentUser();
@@ -34,11 +34,11 @@ export const UserButton = () => {
             Logout
           </DropdownMenuItem>
         </LogoutButton>
-        <OrganizationSwitcher
+        {/* <OrganizationSwitcher
         // organizations={organizations}
         // selectedOrganization={selectedOrganization}
         // onSelectOrganization={handleSelectOrganization}
-        />
+        /> */}
         <a href="/settings">⚙️ Settings</a>
       </DropdownMenuContent>
     </DropdownMenu>
