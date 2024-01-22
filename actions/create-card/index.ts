@@ -12,8 +12,8 @@ import { CreateCard } from "./schema";
 import { InputType, ReturnType } from "./types";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const userId="2021"
-  const orgId = "2020";
+  const userId = "2021";
+  const orgId = "qwesdrftgyuhijkjmhngbfvdcs";
 
   if (!userId || !orgId) {
     return {
@@ -64,8 +64,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     });
   } catch (error) {
     return {
-      error: "Failed to create."
-    }
+      error: "Failed to create.",
+    };
   }
 
   revalidatePath(`/board/${boardId}`);

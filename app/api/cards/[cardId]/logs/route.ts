@@ -8,8 +8,8 @@ export async function GET(
   { params }: { params: { cardId: string } }
 ) {
   try {
-    const userId="2021"
-  const orgId = "2020";
+    const userId = "2021";
+    const orgId = "qwesdrftgyuhijkjmhngbfvdcs";
 
     if (!userId || !orgId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -31,4 +31,4 @@ export async function GET(
   } catch (error) {
     return new NextResponse("Internal Error", { status: 500 });
   }
-};
+}

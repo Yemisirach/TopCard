@@ -4,7 +4,8 @@
  * @type {string[]}
  */
 export const publicRoutes = ["/", "/auth/new-verification"];
-
+export const INVITED_BOARD_REDIRECT = "/invitedBoard";
+export const CREATE_ORG_REDIRECT = "/createOrganization";
 /**
  * An array of routes that are used for authentication
  * These routes will redirect logged in users to /settings
@@ -29,4 +30,4 @@ export const apiAuthPrefix = "/api/auth";
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = "/workspaces";
+export const DEFAULT_LOGIN_REDIRECT = "/admin";

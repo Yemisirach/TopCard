@@ -15,7 +15,7 @@ export const createAuditLog = async (props: Props) => {
   try {
     // const { orgId } = auth();
     // const userId="2021"
-    const orgId = "2020";
+    const orgId = "qwesdrftgyuhijkjmhngbfvdcs";
     const user = await currentUser();
 
     if (!user || !orgId) {

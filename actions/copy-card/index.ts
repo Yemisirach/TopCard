@@ -12,8 +12,8 @@ import { InputType, ReturnType } from "./types";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   // const { userId, orgId } = auth();
-  const userId="2021"
-  const orgId = "2020";
+  const userId = "2021";
+  const orgId = "qwesdrftgyuhijkjmhngbfvdcs";
 
   if (!userId || !orgId) {
     return {
@@ -37,13 +37,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     });
 
     if (!cardToCopy) {
-      return { error: "Card not found" }
+      return { error: "Card not found" };
     }
 
     const lastCard = await db.card.findFirst({
       where: { listId: cardToCopy.listId },
       orderBy: { order: "desc" },
-      select: { order: true }
+      select: { order: true },
     });
 
     const newOrder = lastCard ? lastCard.order + 1 : 1;
@@ -62,11 +62,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: card.id,
       entityType: ENTITY_TYPE.CARD,
       action: ACTION.CREATE,
-    })
+    });
   } catch (error) {
     return {
-      error: "Failed to copy."
-    }
+      error: "Failed to copy.",
+    };
   }
 
   revalidatePath(`/board/${boardId}`);

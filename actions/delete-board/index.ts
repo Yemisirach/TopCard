@@ -14,8 +14,8 @@ import { ACTION, ENTITY_TYPE } from "@prisma/client";
 // import { checkSubscription } from "@/lib/subscription";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const userId="2021"
-  const orgId = "2020";
+  const userId = "2021";
+  const orgId = "qwesdrftgyuhijkjmhngbfvdcs";
 
   if (!userId || !orgId) {
     return {
@@ -34,17 +34,16 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
- 
     await createAuditLog({
       entityTitle: board.title,
       entityId: board.id,
       entityType: ENTITY_TYPE.BOARD,
       action: ACTION.DELETE,
-    })
+    });
   } catch (error) {
     return {
-      error: "Failed to delete."
-    }
+      error: "Failed to delete.",
+    };
   }
 
   revalidatePath(`/organization/${orgId}`);

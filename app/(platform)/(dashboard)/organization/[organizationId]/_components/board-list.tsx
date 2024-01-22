@@ -9,7 +9,7 @@ import { FormPopover } from "@/components/form/form-popover";
 
 export const BoardList = async () => {
   // const userId="2021"
-  const orgId = "2020";
+  const orgId = "qwesdrftgyuhijkjmhngbfvdcs";
 
   if (!orgId) {
     return redirect("/select-org");

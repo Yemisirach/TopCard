@@ -43,6 +43,25 @@ export default auth((req) => {
   //   ));
   // }
 
+  // if (isAuthRoute) {
+  //   if (isLoggedIn) {
+  //     // Assuming the user role is available in req.auth.role
+  //     const userRole = req.auth?.role;
+
+  //     // Customize redirection based on user role
+  //     switch (userRole) {
+  //       case UserRole.ADMIN:
+  //         return Response.redirect(new URL(CREATE_ORG_REDIRECT, nextUrl));
+  //       case UserRole.USER:
+  //         return Response.redirect(new URL(INVITED_BOARD_REDIRECT, nextUrl));
+  //       default:
+  //         // Default redirection for other roles
+  //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+  //     }
+  //   }
+  //   return null;
+  // }
+
   return null;
 });
 

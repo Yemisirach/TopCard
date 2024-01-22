@@ -29,11 +29,11 @@ model User {
   boards       BoardMember[]
 }
 
-// model Organization {
-//   id            String @id @default(uuid())
-//   name          String
-//   profileImage  String?
-// }
+model Organization {
+  id            String @id @default(uuid())
+  name          String
+  profileImage  String?
+}
 
 model Workspace {
   id            String @id @default(uuid())
@@ -64,6 +64,7 @@ model Board {
   imageUserName String @db.Text
   imageLinkHTML String @db.Text
   workspaceId   String
+   orgId   String
   workspace     Workspace           @relation(fields: [workspaceId], references: [id])
   members       BoardMember[]
   lists         List[]
