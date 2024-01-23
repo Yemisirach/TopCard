@@ -8,7 +8,7 @@ import { OrganizationSchema } from "./schema";
 import { InputType, ReturnType } from "./types";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { id, name, profileImage } = data;
+  const { id, name, imageUrl } = data;
 
   if (!name) {
     return {
@@ -23,7 +23,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       data: {
         id,
         name,
-        profileImage, 
+        imageUrl,
       },
     });
 

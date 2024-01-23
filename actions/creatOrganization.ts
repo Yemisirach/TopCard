@@ -1,56 +1,54 @@
-"use server";
+// // server.js
 
-import { db } from "@/lib/db";
-import { Request, Response } from "express";
+// import express from "express";
+// import cors from "cors";
+// import { db } from "@/lib/db";
+// import { Request, Response } from "express";
 
-const express = require("express");
-const cors = require("cors");
+// const app = express();
+// const PORT = process.env.PORT || 3000;
 
-// Create an instance of Express
-const app = express();
+// app.use(express.json());
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000", // Adjust based on the actual URL of your React app during development
+//     credentials: true,
+//   })
+// );
 
-// Middleware to parse JSON requests
-app.use(express.json());
+// app.post("/api/organizations", async (req: Request, res: Response) => {
+//   try {
+//     const { name, imageUrl } = req.body;
 
-// CORS middleware configuration
-app.use(
-  cors({
-    origin: "http://localhost:3001", // Adjust this based on the actual URL of your Next.js app during development
-    credentials: true,
-  })
-);
-// http://localhost:3000/api/organizations
+//     if (!name) {
+//       return res
+//         .status(400)
+//         .json({ error: "Please provide organization name" });
+//     }
 
-// Route for creating organizations
-app.post("/api/organizations", async (req: Request, res: Response) => {
-  try {
-    const { name, profileImage } = req.body;
+//     const newOrganization = await db.organization.create({
+//       data: {
+//         name,
+//         imageUrl,
+//       },
+//     });
 
-    // Validate the request data
-    if (!name) {
-      return res
-        .status(400)
-        .json({ error: "Please provide organization name" });
-    }
+//     return res.status(201).json(newOrganization);
+//   } catch (error) {
+//     console.error("Error creating organization:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
-    // Create a new organization in the database using Prisma
-    const newOrganization = await db.organization.create({
-      data: {
-        name,
-        profileImage,
-      },
-    });
+// app.use((err, req, res, next) => {
+//   console.error("Error:", err);
+//   return res.status(500).json({ error: "Internal server error" });
+// });
 
-    // Respond with the created organization
-    return res.status(201).json(newOrganization);
-  } catch (error) {
-    console.error("Error creating organization:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
 
-// Start the Express server
-const PORT = 3001; // Update the port number
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// src/app.ts
+
+
