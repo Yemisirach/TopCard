@@ -3,7 +3,7 @@
 import { Prisma } from "@prisma/client";
 
 export interface Organization {
-  id: number;
+  id: string;
   name: string;
   image?: string; // Add the image field if it exists in your schema
   // Add other fields as needed

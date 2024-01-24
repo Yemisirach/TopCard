@@ -41,9 +41,8 @@ const OrganizationForm: React.FC<OrganizationFormProps> = ({
         "http://localhost:3000/api/organizations",
         formData,
         {
-          // Set the content type to multipart/form-data
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json", // Set the Content-Type header to JSON
           },
         }
       );

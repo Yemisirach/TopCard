@@ -16,18 +16,17 @@ export const createOrganization = async (
       return;
     }
 
-    // Assuming someNumericId is a number, convert it to a string
-    //@ts-ignore
+    // Create a new organization without manually specifying the id
     const newOrganization: Organization = await db.organization.create({
       data: {
         name,
         imageUrl,
-        //@ts-ignore
-        id: String(someNumericId),
+        id,
       },
     });
 
     res.status(201).json(newOrganization);
+    //  return newOrganization
   } catch (error) {
     console.error("Error creating organization:", error);
     res.status(500).json({ error: "Internal server error" });
