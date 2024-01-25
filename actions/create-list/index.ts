@@ -1,6 +1,5 @@
 "use server";
 
-// import { auth } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/lib/db";

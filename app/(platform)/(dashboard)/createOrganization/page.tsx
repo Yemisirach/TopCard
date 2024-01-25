@@ -202,47 +202,141 @@
 // export default AdminPage;
 
 // Import necessary dependencies
-import React, { useState } from "react";
-import OrganizationForm from "@/components/OrganizationForm"; // Adjust the import path based on your project structure
-import { Organization } from "@prisma/client";
-import { useRouter } from "next/navigation";
 
-const CreateOrganizationPage: React.FC = () => {
-  const [organizations, setOrganizations] = useState<Organization[]>([]);
-  const [selectedOrganization, setSelectedOrganization] =
-    useState<Organization | null>(null);
-  const router = useRouter();
-  const handleCreateOrganization = (newOrganization: Organization) => {
-    // Add the new organization to the list
-    setOrganizations((prevOrganizations) => [
-      ...prevOrganizations,
-      newOrganization,
-    ]);
+// Import necessary dependencies
+// import React, { useState } from "react";
+// import OrganizationForm from "@/components/OrganizationForm";
+// import { Organization } from "@prisma/client";
+// import { useRouter } from "next/navigation";
 
-    // Set the newly created organization as the selected one
-    setSelectedOrganization(newOrganization);
+// // Create the CreateOrganizationPage component
+// const CreateOrganizationPage: React.FC = () => {
+//   // State to manage the list of organizations and the selected organization
+//   const [organizations, setOrganizations] = useState<Organization[]>([]);
+//   const [selectedOrganization, setSelectedOrganization] =
+//     useState<Organization | null>(null);
 
-    // Redirect to the organization details page
-    router.push(`/organization/${newOrganization.id}`);
-  };
+//   // Initialize the Next.js router
+//   const router = useRouter();
 
-  const handleSelectOrganization = (organization: Organization) => {
-    // Set the selected organization
-    setSelectedOrganization(organization);
-  };
+//   // Handler function for creating a new organization
+//   const handleCreateOrganization = (newOrganization: Organization) => {
+//     // Update the list of organizations with the newly created one
+//     setOrganizations((prevOrganizations) => [
+//       ...prevOrganizations,
+//       newOrganization,
+//     ]);
 
-  return (
-    <div className="mt-20 pt-10">
-      <div className="h-[500px] w-[380px] m-auto align-middle">
-        {/* Your other components or content here */}
+//     // Set the newly created organization as the selected one
+//     setSelectedOrganization(newOrganization);
 
-        {/* Render the OrganizationForm component */}
-        <OrganizationForm onCreateOrganization={handleCreateOrganization} />
+//     // Redirect to the organization details page
+//     router.push(`/organization/${newOrganization.id}`);
+//   };
 
-        {/* Optionally render other components like OrganizationSwitcher or OrganizationList */}
+//   // Handler function for selecting an existing organization
+//   const handleSelectOrganization = (organization: Organization) => {
+//     // Set the selected organization
+//     setSelectedOrganization(organization);
+//   };
+
+//   return (
+//     <div className="mt-20 pt-10">
+//       <div className="h-[500px] w-[380px] m-auto align-middle">
+//         {/* Your other components or content here */}
+
+//         {/* Render the OrganizationForm component */}
+//         <OrganizationForm onCreateOrganization={handleCreateOrganization} />
+
+//         {/* Optionally render other components like OrganizationSwitcher or OrganizationList */}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default CreateOrganizationPage;
+
+import { forwardRef } from "react";
+import { useAction } from "@/hooks/use-action";
+import { createOrganization } from "@/actions/createOrganization";
+import { Button } from "@/components/ui/button";
+import { FormSubmit } from "@/components/form/form-submit";
+import { FormInput } from "@/components/form/form-input";
+import { currentUser } from "@/lib/auth";
+import { Card } from "@/components/ui/card";
+import { Header } from "@/components/auth/header";
+
+interface OrganizationFormProps {
+  onCreateOrganization: () => void;
+}
+
+const OrganizationForm = forwardRef<HTMLFormElement, OrganizationFormProps>(
+  ({ onCreateOrganization }, ref) => {
+    const { execute, fieldErrors } = useAction(createOrganization);
+
+    const onSubmit = async (formData: FormData) => {
+      const user = currentUser();
+      const name = formData.get("name") as string;
+      const imageUrl = formData.get("imageUrl") as string;
+      const userId = user.id;
+
+      try {
+        const organization = await execute({ name, imageUrl, userId });
+
+        // Optionally, you can handle the success scenario here
+        console.log("Organization created:", organization);
+
+        // Invoke the callback to inform the parent component
+        onCreateOrganization();
+      } catch (error) {
+        // Optionally, you can handle the error scenario here
+        console.error("Error creating organization:", error);
+      }
+    };
+
+    return (
+      <div className="mt-20 h-[300px] flex justify-center align-middle">
+        <Card className="w-[400px] p-4 gap-6 bg-white h-[300px] flex flex-col justify-center align-middle">
+          <Header label="Create a new organization"></Header>
+          <form
+            ref={ref}
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit(new FormData(e.currentTarget));
+            }}
+            className="m-1 py-0.5 px-1 space-y-4"
+          >
+            <FormInput
+              className="Topinputs h-[40px]"
+              type="text"
+              id="name"
+              placeholder="Enter organization name..."
+              errors={fieldErrors}
+            />
+            <FormInput
+              className="Topinputs"
+              type="text"
+              id="imageUrl"
+              placeholder="Enter organization image URL..."
+              errors={fieldErrors}
+            />
+            <div className="flex items-center  gap-x-1">
+              <FormSubmit className="w-[220px]">Create organization</FormSubmit>
+              {/* 
+            Note: You might not need a cancel button for creating organizations,
+            but you can customize this as needed.
+          */}
+              <Button className="bg-gray-200 " size="sm" variant="ghost">
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </Card>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
-export default CreateOrganizationPage;
+OrganizationForm.displayName = "OrganizationForm";
+
+export default OrganizationForm;

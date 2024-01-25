@@ -96,15 +96,11 @@ model List {
   id        String @id @default(uuid())
   title     String
   order     Int
-
   boardId   String
   board     Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
-
   cards     Card[]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   @@index([boardId])
 }
 
@@ -139,6 +135,7 @@ enum ENTITY_TYPE {
   BOARD
   LIST
   CARD
+  ORGANIZATION
 }
 
 model AuditLog {
@@ -151,7 +148,6 @@ model AuditLog {
   userId      String
   userImage   String @db.Text
   userName    String @db.Text
-
   createdAt   DateTime @default(now())
   updatedAt   DateTime  @updatedAt
 }

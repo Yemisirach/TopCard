@@ -21,7 +21,6 @@ export const createOrganization = async (
       data: {
         name,
         imageUrl,
-        id,
       },
     });
 

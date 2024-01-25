@@ -3,7 +3,7 @@
 interface Organization {
   id: string;
   name: string;
-  imageUrl?: string; // Optional property, adjust based on your requirements
+  imageUrl: string | null | undefined;
 }
 
 export default Organization;
