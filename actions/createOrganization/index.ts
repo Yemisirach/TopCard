@@ -1,5 +1,3 @@
-// index.ts
-
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { createSafeAction } from "@/lib/create-safe-action";
@@ -8,18 +6,8 @@ import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { CreateOrganization } from "./schema";
 import { InputType, ReturnType } from "./types";
 
-const handler = async ({
-  name,
-  imageUrl,
-  userId,
-}: InputType & { userId: string }): Promise<ReturnType> => {
+const handler = async ({ name, imageUrl }: InputType): Promise<ReturnType> => {
   try {
-    if (!userId) {
-      return {
-        error: "Unauthorized",
-      };
-    }
-
     // Basic validation
     if (!name) {
       return {
@@ -32,7 +20,6 @@ const handler = async ({
       data: {
         name,
         imageUrl: imageUrl || null, // Handle imageUrl as optional
-        // userId,
       },
     });
 

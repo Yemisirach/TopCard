@@ -6,9 +6,10 @@ import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { OrganizationSchema } from "./schema";
 import { InputType, ReturnType } from "./types";
+import { revalidatePath } from "next/cache";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { id, name, imageUrl } = data;
+  const { name, imageUrl } = data;
 
   if (!name) {
     return {
@@ -21,7 +22,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   try {
     organization = await db.organization.create({
       data: {
-        id,
         name,
         imageUrl,
       },
@@ -33,6 +33,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityType: ENTITY_TYPE.ORGANIZATION,
       action: ACTION.CREATE,
     });
+    revalidatePath(`/organization/${organization.id}`);
   } catch (error) {
     return {
       error: "Failed to create organization.",

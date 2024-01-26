@@ -1,5 +1,3 @@
-"use client";
-
 // import { admin } from "@/actions/admin";
 // import { RoleGate } from "@/components/auth/role-gate";
 // import { FormSuccess } from "@/components/form-success";
@@ -256,6 +254,8 @@
 
 // export default CreateOrganizationPage;
 
+"use client";
+
 import { forwardRef } from "react";
 import { useAction } from "@/hooks/use-action";
 import { createOrganization } from "@/actions/createOrganization";
@@ -275,13 +275,11 @@ const OrganizationForm = forwardRef<HTMLFormElement, OrganizationFormProps>(
     const { execute, fieldErrors } = useAction(createOrganization);
 
     const onSubmit = async (formData: FormData) => {
-      const user = currentUser();
       const name = formData.get("name") as string;
       const imageUrl = formData.get("imageUrl") as string;
-      const userId = user.id;
-
+  
       try {
-        const organization = await execute({ name, imageUrl, userId });
+        const organization = await execute({ name, imageUrl });
 
         // Optionally, you can handle the success scenario here
         console.log("Organization created:", organization);

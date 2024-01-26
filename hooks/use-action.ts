@@ -21,7 +21,7 @@ export const useAction = <TInput, TOutput> (
   const [data, setData] = useState<TOutput | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const execute = useCallback(
+const execute = useCallback(
     async (input: TInput) => {
       setIsLoading(true);
 
@@ -43,7 +43,7 @@ export const useAction = <TInput, TOutput> (
           setData(result.data);
           options.onSuccess?.(result.data);
         }
-      } finally {
+    } finally {
         setIsLoading(false);
         options.onComplete?.();
       }
