@@ -6,4 +6,4 @@
 */
 -- AlterTable
 ALTER TABLE "Organization" DROP COLUMN "image",
-ADD COLUMN     "imageUrl" TEXT;
+ADD COLUMN     "image" TEXT;

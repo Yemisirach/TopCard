@@ -1,37 +1,24 @@
-// src/pages/api/organizations.ts
 
 import { NextApiRequest, NextApiResponse } from "next";
-import Organization from "../../models/Organization";
-import { db } from "../../lib/db";
+import { db } from "@/lib/db";
+
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
+  if (req.method === "GET") {
     try {
-      const { name, imageUrl } = req.body;
-
-      if (!name) {
-        return res
-          .status(400)
-          .json({ error: "Please provide organization name" });
-      }
-
-      const newOrganization: Organization = await db.organization.create({
-        data: {
-          name,
-          imageUrl,
-        },
-      });
-
-      return res.status(201).json(newOrganization);
+      const organizations = await db.organization.findMany();
+      console.log("🚀 ~ handler ~ organizations:", organizations);
+      res.status(200).json({ organizations });
     } catch (error) {
-      console.error("Error creating organization:", error);
-      return res.status(500).json({ error: "Internal yemi server error" });
+      console.error("Error fetching organizations:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } finally {
+      await db.$disconnect();
     }
   } else {
-    // Handle other HTTP methods if needed
-    return res.status(405).json({ error: "Method Not Allowed" });
+    res.status(405).json({ error: "Method Not Allowed" });
   }
 }

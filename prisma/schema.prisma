@@ -18,6 +18,7 @@ model User {
   role                  UserRole               @default(ADMIN)
   orgname               String?                // Added orgname field
   accounts              Account[]
+   userSettings          UserSettings[]
   twoFactorConfirmation TwoFactorConfirmation?
 }
 
@@ -155,7 +156,22 @@ model AuditLog {
 model Organization {
   id       String   @id @default(uuid())
   name    String
-  imageUrl   String?  
+  userId         String
+  imageId       String
+  imageThumbUrl String @db.Text
+  imageFullUrl  String @db.Text
+  imageUserName String @db.Text
+  imageLinkHTML String @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 
+model UserSettings {
+  id      String @id @default(cuid())
+  userId  String
+  orgId   String?
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+  @@index([orgId])
+}

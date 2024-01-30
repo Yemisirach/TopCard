@@ -1,15 +1,9 @@
-// types.ts
+import { z } from "zod";
+import { Organization } from "@prisma/client";
 
-export interface InputType {
-  name: string;
-  imageUrl?: string; // Make imageUrl optional in the interface
-}
+import { ActionState } from "@/lib/create-safe-action";
 
-export interface ReturnType {
-  data?: {
-    id: string;
-    name: string;
-    imageUrl: string | null; // Adjust accordingly if imageUrl is optional
-  };
-  error?: string;
-}
+import { CreateOrganization } from "./schema";
+// import { Session } from "next-auth";
+export type InputType = z.infer<typeof CreateOrganization>;
+export type ReturnType = ActionState<InputType, Organization>;

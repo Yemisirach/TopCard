@@ -1,45 +1,76 @@
-import { revalidatePath } from "next/cache";
-import { db } from "@/lib/db";
-import { createSafeAction } from "@/lib/create-safe-action";
-import { createAuditLog } from "@/lib/create-audit-log";
-import { ACTION, ENTITY_TYPE } from "@prisma/client";
-import { CreateOrganization } from "./schema";
+"use server";
+
+import { auth } from "@/auth";
 import { InputType, ReturnType } from "./types";
+import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
+import { createSafeAction } from "@/lib/create-safe-action";
+import { CreateOrganization } from "./schema";
 
-const handler = async ({ name, imageUrl }: InputType): Promise<ReturnType> => {
+const handler = async (data: InputType): Promise<ReturnType> => {
+  const session = await auth();
+
+  if (!session) {
+    return {
+      error: "unauthorized",
+    };
+  }
+
+  const { name, image } = data;
+
+  const [imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName] =
+    image.split("|");
+
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageUserName ||
+    !imageLinkHTML
+  ) {
+    return {
+      error: "Missing fields. Failed to create board.",
+    };
+  }
+
+  const userId = session?.user?.id;
+
+  if (userId === undefined) {
+    return {
+      error: "User ID is undefined",
+    };
+  }
+
   try {
-    // Basic validation
-    if (!name) {
-      return {
-        error: "Please provide a name for the organization.",
-      };
-    }
-
-    // Assuming you have an "organizations" table in your database
     const organization = await db.organization.create({
       data: {
         name,
-        imageUrl: imageUrl || null, // Handle imageUrl as optional
+        userId,
+        imageId,
+        imageThumbUrl,
+        imageFullUrl,
+        imageUserName,
+        imageLinkHTML,
       },
     });
 
-    await createAuditLog({
-      entityTitle: organization.name,
-      entityId: organization.id,
-      entityType: ENTITY_TYPE.ORGANIZATION,
-      action: ACTION.CREATE,
+    // Find the userSettings record and update it with the orgId
+    await db.userSettings.update({
+      where: { userId }, // Use userId directly if it's the unique identifier
+      data: { orgId: organization.id },
     });
 
     revalidatePath(`/organization/${organization.id}`);
-
     return { data: organization };
   } catch (error) {
-    console.error("Failed to create organization:", error);
-
+    console.error("Error creating the organization:", error);
     return {
-      error: "Failed to create organization. Please try again.",
+      error: "Error creating the organization.",
     };
   }
 };
 
-export const createOrganization = createSafeAction(CreateOrganization, handler);
+export const CreateOrganizations = createSafeAction(
+  CreateOrganization,
+  handler
+);

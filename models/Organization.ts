@@ -3,7 +3,7 @@
 interface Organization {
   id: string;
   name: string;
-  imageUrl: string | null | undefined;
+  image: string | null | undefined;
 }
 
 export default Organization;

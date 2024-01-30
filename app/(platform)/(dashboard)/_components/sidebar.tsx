@@ -1,16 +1,14 @@
+// Sidebar.tsx
 "use client";
-
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { useLocalStorage } from "usehooks-ts";
-// import { useOrganization, useOrganizationList } from "@clerk/nextjs";
-
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Accordion } from "@/components/ui/accordion";
-
-// import { NavItem, Organization } from "./nav-item";
+import { NavItem, Organization } from "./nav-item";
+import { useOrganization, useOrganizationList } from "@/hooks/use-organization"; // Adjust the path accordingly
 
 interface SidebarProps {
   storageKey?: string;
@@ -22,18 +20,10 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
     {}
   );
 
-  // const {
-  //   organization: activeOrganization,
-  //   isLoaded: isLoadedOrg
-  // } = useOrganization();
-  // const {
-  //   userMemberships,
-  //   isLoaded: isLoadedOrgList
-  // } = useOrganizationList({
-  //   userMemberships: {
-  //     infinite: true,
-  //   },
-  // });
+  const { organization: activeOrganization, isLoaded: isLoadedOrg } =
+    useOrganization();
+  const { organizations: userMemberships, isLoaded: isLoadedOrgList } =
+    useOrganizationList();
 
   const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
     (acc: string[], key: string) => {
@@ -53,6 +43,22 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
     }));
   };
 
+  if (!isLoadedOrg || !isLoadedOrgList) {
+    return (
+      <>
+        <div className="flex items-center justify-between mb-2">
+          <Skeleton className="h-10 w-[50%]" />
+          <Skeleton className="h-10 w-10" />
+        </div>
+        <div className="space-y-2">
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <div className="font-medium text-xs flex items-center mb-1">
@@ -64,7 +70,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
           variant="ghost"
           className="ml-auto"
         >
-          <Link href="/organization/id">
+          <Link href="/createOrganization">
             <Plus className="h-4 w-4" />
           </Link>
         </Button>
@@ -73,7 +79,17 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
         type="multiple"
         defaultValue={defaultAccordionValue}
         className="space-y-2"
-      ></Accordion>
+      >
+        {userMemberships.map((organization) => (
+          <NavItem
+            key={organization.id}
+            isActive={activeOrganization?.id === organization.id}
+            isExpanded={expanded[organization.id]}
+            organization={organization}
+            onExpand={onExpand}
+          />
+        ))}
+      </Accordion>
     </>
   );
 };

@@ -1,4 +1,3 @@
-// import { auth } from "@clerk/nextjs";
 import { notFound, redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
@@ -11,6 +10,7 @@ export async function generateMetadata({
   params: { boardId: string };
 }) {
   // const userId="2021"
+
   const orgId = "2020";
 
   if (!orgId) {

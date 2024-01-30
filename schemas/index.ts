@@ -63,7 +63,7 @@ export const OrgSchema = z.object({
   orgname: z.string().min(1, {
     message: "Name is required",
   }),
-  imageUrl: z.optional(z.string()),
+  image: z.optional(z.string()),
 });
 
 export const RegisterSchema = z.object({

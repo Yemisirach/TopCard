@@ -1,16 +1,11 @@
-// schema.ts
-
 import { z } from "zod";
 
-// Zod schema for organization creation input
 export const CreateOrganization = z.object({
-  name: z.string(),
-  imageUrl: z.string().optional(),
-});
-
-// Zod schema for organization data
-export const Organization = z.object({
-  id: z.string(),
-  name: z.string(),
-  imageUrl: z.string(),
+  name: z.string({
+    required_error: "Title is required",
+    invalid_type_error: "Title is required",
+  }).min(3, {
+    message: "Title is too short."
+  }),
+  image: z.any().optional(),
 });

@@ -4,7 +4,6 @@ import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import {
   Activity,
-  CreditCard,
   Layout,
   Settings,
 } from "lucide-react";
@@ -57,11 +56,7 @@ export const NavItem = ({
       icon: <Settings className="h-4 w-4 mr-2" />,
       href: `/organization/${organization.id}/settings`,
     },
-    {
-      label: "Billing",
-      icon: <CreditCard className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}/billing`,
-    },
+   
   ];
 
   const onClick = (href: string) => {
