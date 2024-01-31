@@ -9,7 +9,6 @@ const font = Poppins({
 import localFont from "next/font/local";
 import { Medal } from "lucide-react";
 import { Topbg } from "@/components/topbg";
-
 const headingFont = localFont({
   src: "../public/fonts/font.woff2",
 });
@@ -30,11 +29,11 @@ export default function Home() {
         >
           <div className="mb-4 flex items-center border shadow-sm p-4 bg-amber-100 text-bluelight-700 rounded-full uppercase">
             <Medal className="h-6 w-6 mr-2" />
-            Top Beverage industry and trading
+            TOP Beverage industry and trading
           </div>
           <h1 className="text-3xl md:text-5xl text-center text-neutral-100 mb-1">
             {/* <Medal className="h-6 w-6 mr-2" /> */}
-            Top helps team move work forward.
+            TOP helps team move work forward.
           </h1>
           {/* <div className="text-3xl md:text-6xl bg-gradient-to-r from-gray-600 to-blue-600 text-white px-4 p-2 rounded-md pb-4 w-fit">
           </div> */}

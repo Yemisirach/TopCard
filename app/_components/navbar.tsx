@@ -4,19 +4,21 @@ import { Button } from "@/components/ui/button";
 import { LoginButton } from "@/components/auth/login-button";
 import { UserButton } from "@/components/auth/user-button";
 import { currentUser } from "@/lib/auth";
-import { FormPopover } from "@/components/form/form-popover";
+// import { FormPopover } from "@/components/form/form-popover";
 
 export const Navbar = async () => {
   const user = await currentUser();
-  // console.log(user, "yemit");
-  const isLoggedIn = user?.isOAuth == true;
+  console.log(user, "yemit");
+  // @ts-ignore
+  const isLoggedIn = user?.isOAuth === true;
+
   return (
-    <div className="top-nav fixed top-0 w-full h-14 px-4 border-b shadow-md bg-gray-100 flex items-center">
+    <div className="top-nav fixed top-0 w-full h-14 px-4 border-b shadow-md bg-white-100 flex items-center">
       <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between">
         {isLoggedIn ? (
           <div className="flex items-center p-1 align-middle">
             <Logo />
-            <FormPopover align="start" side="bottom" sideOffset={18}>
+            {/* <FormPopover align="start" side="bottom" sideOffset={18}>
               <Button
                 variant="primary"
                 size="sm"
@@ -24,7 +26,7 @@ export const Navbar = async () => {
               >
                 Create
               </Button>
-            </FormPopover>
+            </FormPopover> */}
             <div className="h-14 px-4 pr-8 m-1">
               <div className="mt-4 w-0 gets flex items-center justify-start  Tabsstyles__TabGroup-sc-1grh34k-2 hniXih">
                 <button
@@ -91,7 +93,7 @@ export const Navbar = async () => {
           <div>
             {isLoggedIn ? (
               <div className="flex items-center p-1 align-middle">
-                <div className="pr-3">{user.name}</div>
+                <div className="pr-3">{user?.name}</div>
                 <UserButton />
               </div>
             ) : (

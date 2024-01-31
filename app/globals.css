@@ -26,8 +26,12 @@ body {
     rgb(var(--background-start-rgb));
 }
 .top-card {
-  height: 700px;
-  /* background-color: #ffffff; */
+  height: 630px;
+  background-color: #ffffff;
+}
+.top-cards {
+  height: 630px;
+  background-color: #ffffff;
 }
 .po {
   background-color: aqua;
@@ -88,7 +92,8 @@ body {
   background-color: rgb(213, 217, 247) !important;
 }
 .top {
-  height: 800px;
+  height: 630px;
+  overflow-y: hidden;
 }
 .sign-ins {
   margin-top: 3.6rem !important;
@@ -98,7 +103,7 @@ body {
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 .top-nav {
-  box-shadow: 10px 10px 10px rgba(92, 111, 254, 0.5);
+  /* box-shadow: 10px 10px 10px rgba(92, 111, 254, 0.5); */
 }
 .login-btn {
   border: 1px rgb(128, 163, 251) solid;

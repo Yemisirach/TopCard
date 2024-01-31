@@ -13,16 +13,16 @@ const OrganizationIdLayout = async ({
   children: React.ReactNode;
   params: { orgId: string };
 }) => {
-//   const userId = "qwertyuioplkjhgf";
-//   //   let organization;
+  //   const userId = "qwertyuioplkjhgf";
+  //   //   let organization;
 
-//   //   try {
-//   const organization = await db.organization.findUnique({
-//     where: {
-//       id: params.orgId,
-//       userId,
-//     },
-//   });
+  //   //   try {
+  //   const organization = await db.organization.findUnique({
+  //     where: {
+  //       id: params.orgId,
+  //       userId,
+  //     },
+  //   });
 
   //     // Log organization details for debugging
   //     console.log("Organization:", organization);
@@ -31,27 +31,27 @@ const OrganizationIdLayout = async ({
   //     // throw new Error(`Error fetching organization: ${error.message || error}`);
   //   }
 
-//   if (!organization || organization.id === undefined) {
-//     // Throw an error if organization or its id is not found
-//     // throw new Error("Organization not found");
-//     console.error("Error fetching organization:");
-//   }
+  //   if (!organization || organization.id === undefined) {
+  //     // Throw an error if organization or its id is not found
+  //     // throw new Error("Organization not found");
+  //     console.error("Error fetching organization:");
+  //   }
 
-//   const orgId = organization.id;
+  //   const orgId = organization.id;
 
-//   if (!orgId) {
-//     revalidatePath("/organization/setting");
-//     return null; // Add a return statement here to avoid further execution
-//   }
+  //   if (!orgId) {
+  //     revalidatePath("/organization/setting");
+  //     return null; // Add a return statement here to avoid further execution
+  //   }
 
   return (
     <div
-      className="relative h-full bg-no-repeat bg-cover bg-center"
-    //   style={{ backgroundImage: `url(${organization.imageFullUrl})` }}
+      className="relative h-full top-cards bg-no-repeat  bg-cover bg-center"
+      //   style={{ backgroundImage: `url(${organization.imageFullUrl})` }}
     >
       {/* <OrgNavbar data={organization} /> */}
       <div className="absolute inset-0 bg-black/10" />
-      <main className="relative pt-28 h-full">{children}</main>
+      <main className="bg-white relative pt-7 h-full">{children}</main>
     </div>
   );
 };

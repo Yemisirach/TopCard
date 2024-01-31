@@ -66,7 +66,7 @@ export const OrgFormPopover = ({
         sideOffset={sideOffset}
       >
         <div className="text-sm font-medium text-center text-neutral-600 pb-4">
-          Create Organization
+          Create Workspace
         </div>
         <PopoverClose ref={closeRef} asChild>
           <Button
@@ -81,12 +81,12 @@ export const OrgFormPopover = ({
             <FormPicker id="image" errors={fieldErrors} />
             <FormInput
               id="name"
-              label="Organization Name"
+              label="Workspace Name"
               type="text"
               errors={fieldErrors}
             />
           </div>
-          <FormSubmit className="w-full">Create organization</FormSubmit>
+          <FormSubmit className="w-full">Create Workspace</FormSubmit>
         </form>
       </PopoverContent>
     </Popover>

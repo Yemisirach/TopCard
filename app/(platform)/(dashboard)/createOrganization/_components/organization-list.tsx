@@ -6,9 +6,11 @@ import { db } from "@/lib/db";
 import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
 import { OrgFormPopover } from "@/components/form/organization-form-popover";
+import { currentUser } from "@/lib/auth";
 
 export const OrganizationList = async () => {
-  const userId = "2021";
+  const user = await currentUser();
+  const userId = user?.id;
 
   if (!userId) {
     return redirect("/createOrganization");
@@ -27,9 +29,9 @@ export const OrganizationList = async () => {
     <div className="space-y-4">
       <div className="flex items-center font-semibold text-lg text-neutral-700">
         <User2 className="h-6 w-6 mr-2" />
-        Your organization
+        Top Workspaces
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-3">
         {organization.map((org) => (
           <Link
             key={org.id}
@@ -38,9 +40,7 @@ export const OrganizationList = async () => {
             style={{ backgroundImage: `url(${org.imageThumbUrl})` }}
           >
             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" />
-            <p className="relative font-semibold text-white">
-              {org.name} Hi yemi
-            </p>
+            <p className="relative font-semibold text-white">{org.name}</p>
           </Link>
         ))}
         <OrgFormPopover sideOffset={10} side="right">
@@ -48,16 +48,16 @@ export const OrganizationList = async () => {
             role="button"
             className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
           >
-            <p className="text-sm">Create new Organization</p>
+            <p className="text-sm">Create new Workspace</p>
             <span className="text-xs"></span>
-            {/* <Hint
+            <Hint
               sideOffset={40}
               description={`
                 In Each Workspaces can have unlimited boards.
               `}
             >
               <HelpCircle className="absolute bottom-2 right-2 h-[14px] w-[14px]" />
-            </Hint> */}
+            </Hint>
           </div>
         </OrgFormPopover>
       </div>

@@ -24,38 +24,17 @@
 import { db } from "@/lib/db";
 
 // import { Forms } from "./form";
-import { Organization } from "./Organization";
-import { FaBuilding } from "react-icons/fa";
+// import { Organization } from "./Organization";
+// import { FaBuilding } from "react-icons/fa";
 import { OrganizationList } from "./_components/organization-list";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+// import Link from "next/link";
+// import { Button } from "@/components/ui/button";
 
 const OrganizationForm = async () => {
-  const organizations = await db.organization.findMany();
+  // const organizations = await db.organization.findMany();
 
   return (
-    <div className="mt-20 m-auto flex flex-col justify-center w-[400px] h-[300px] ">
-      {/* <Forms /> */}
-      <div>
-        {organizations.map((org) => (
-          <Button className="w-[300px] bg-sky-300">
-            <Link
-              key={org.id}
-              href={`/organization/${org.id}`}
-              className="h-[40px] justify-start flex group relative aspect-video bg-no-repeat bg-center bg-cover rounded-sm w-full p-2 overflow-hidden"
-            >
-              <div
-                className="w-200px] h-[200px] border-collapse"
-                style={{ backgroundImage: `url(${org.imageThumbUrl})` }}
-              ><FaBuilding /></div>
-              
-              {/* <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" /> */}
-              <p className="relative font-semibold text-black">{org.name}</p>
-            </Link>
-          </Button>
-        ))}
-      </div>
-
+    <div className="m-auto flex bg-white flex-col justify-center h-full w-[600px]">
       <OrganizationList />
     </div>
   );
