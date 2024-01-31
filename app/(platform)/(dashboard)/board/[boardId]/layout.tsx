@@ -9,7 +9,6 @@ export async function generateMetadata({
 }: {
   params: { boardId: string };
 }) {
-  // const userId="2021"
 
   const orgId = "2020";
 

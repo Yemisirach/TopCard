@@ -54,9 +54,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
-    // Find the userSettings record and update it with the orgId
     await db.userSettings.update({
-      where: { userId }, // Use userId directly if it's the unique identifier
+      where: { id: userId },
       data: { orgId: organization.id },
     });
 

@@ -10,6 +10,7 @@ import { FormPopover } from "@/components/form/form-popover";
 export const BoardList = async () => {
   // const userId="2021"
   const orgId = "2020";
+  
 
   if (!orgId) {
     return redirect("/createOrganization");

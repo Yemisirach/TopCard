@@ -9,6 +9,4 @@ export interface Organization {
   imageLinkHTML: string;
   createdAt: Date;
   updatedAt: Date;
-  slug: string; // Add the missing property
-  imageUrl: string; // Add the missing property
 }
