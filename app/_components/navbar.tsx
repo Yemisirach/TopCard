@@ -11,9 +11,13 @@ export const Navbar = async () => {
   console.log(user, "yemit");
   // @ts-ignore
   const isLoggedIn = user?.isOAuth === true;
+  const firstName = user?.name
+    ? user.name.split(" ")[0].charAt(0).toUpperCase() +
+      user.name.split(" ")[0].slice(1)
+    : "";
 
   return (
-    <div className="top-nav fixed top-0 w-full h-14 px-4 border-b shadow-md bg-white-100 flex items-center">
+    <div className="top-nav fixed top-0 w-full h-14 px-4 shadow-md bg-white-100 flex items-center">
       <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between">
         {isLoggedIn ? (
           <div className="flex items-center p-1 align-middle">
@@ -93,7 +97,10 @@ export const Navbar = async () => {
           <div>
             {isLoggedIn ? (
               <div className="flex items-center p-1 align-middle">
-                <div className="pr-3">{user?.name}</div>
+                <div className="flex pr-3">
+                  <article className="pr-1">Hi</article>
+                  {firstName}
+                </div>
                 <UserButton />
               </div>
             ) : (

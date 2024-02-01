@@ -11,24 +11,24 @@ import { LoginButton } from "@/components/auth/login-button";
 import { UserButton } from "@/components/auth/user-button";
 import Link from "next/link";
 
-export const Navbar = async () => {
+export const Navbars = async () => {
   const user = await currentUser();
   console.log(user, "yemit");
   // @ts-ignore
   const isLoggedIn = user?.isOAuth === true;
   return (
-    <nav className="fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm bg-white flex items-center">
+    <nav className="fixed z-50  top-0 pr-2 w-full h-14 shadow-sm flex items-center">
       <MobileSidebar />
-      <div className="top-nav fixed top-0 w-full h-14 px-4 border-b shadow-md  flex items-center">
+      <div className="top-navs fixed top-0 w-full h-14 px-4 border-b shadow-md  flex items-center">
         <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between">
           {isLoggedIn ? (
             <div className="flex items-center p-1 align-middle">
               <Logo />
               <OrgFormPopover align="start" side="bottom" sideOffset={18}>
                 <Button
-                  variant="primary"
+                  variant="transparent"
                   size="sm"
-                  className="rounded-sm ml-7 hidden md:block h-auto  py-1.5 px-2"
+                  className="rounded-sm ml-7 create-work hidden md:block h-auto  py-1.5 px-2"
                 >
                   Create
                 </Button>

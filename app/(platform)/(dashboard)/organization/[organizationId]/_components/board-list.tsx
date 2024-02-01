@@ -6,11 +6,13 @@ import { db } from "@/lib/db";
 import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FormPopover } from "@/components/form/form-popover";
+import { useParams } from "next/navigation";
 
 export const BoardList = async () => {
   // const userId="2021"
   const orgId = "2020";
-  
+  // const params = useParams();
+  // const orgId= params.organizationId as string
 
   if (!orgId) {
     return redirect("/createOrganization");

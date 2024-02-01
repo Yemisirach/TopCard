@@ -21,17 +21,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   const [imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName] =
     image.split("|");
 
-  if (
-    !imageId ||
-    !imageThumbUrl ||
-    !imageFullUrl ||
-    !imageUserName ||
-    !imageLinkHTML
-  ) {
-    return {
-      error: "Missing fields. Failed to create board.",
-    };
-  }
+  // if (
+  //   !imageId ||
+  //   !imageThumbUrl ||
+  //   !imageFullUrl ||
+  //   !imageUserName ||
+  //   !imageLinkHTML
+  // ) {
+  //   return {
+  //     error: "Missing fields. Failed to create board.",
+  //   };
+  // }
 
   const userId = session?.user?.id;
 

@@ -34,7 +34,7 @@ const OrganizationForm = async () => {
   // const organizations = await db.organization.findMany();
 
   return (
-    <div className="m-auto flex bg-white flex-col justify-center h-full w-[600px]">
+    <div className="m-auto flex  flex-col justify-center h-full w-[600px]">
       <OrganizationList />
     </div>
   );

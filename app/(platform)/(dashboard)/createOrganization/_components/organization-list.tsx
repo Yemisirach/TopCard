@@ -40,7 +40,12 @@ export const OrganizationList = async () => {
             style={{ backgroundImage: `url(${org.imageThumbUrl})` }}
           >
             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" />
-            <p className="relative font-semibold text-white">{org.name}</p>
+            <p className="relative font-semibold text-white">
+              {org?.name
+                ? org.name.split(" ")[0].charAt(0).toUpperCase() +
+                  org.name.split(" ")[0].slice(1).toLowerCase()
+                : ""}
+            </p>
           </Link>
         ))}
         <OrgFormPopover sideOffset={10} side="right">

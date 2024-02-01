@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import Image from "next/image";
+// import Image from "next/image";
 import {
   Activity,
   Layout,
@@ -16,14 +16,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-
-export type Organization = {
-  id: string;
-  slug: string;
-  imageUrl: string;
-  name: string;
-};
-
+import { Organization } from "@/hooks/types";
 interface NavItemProps {
   isExpanded: boolean;
   isActive: boolean;
@@ -77,12 +70,12 @@ export const NavItem = ({
       >
         <div className="flex items-center gap-x-2">
           <div className="w-7 h-7 relative">
-            <Image
+            {/* <Image
               fill
               src={organization.imageUrl}
               alt="Organization"
               className="rounded-sm object-cover"
-            />
+            /> */}
           </div>
           <span className="font-medium text-sm">
             {organization.name}

@@ -4,8 +4,7 @@ import { startCase } from "lodash";
 // import { OrgControl } from "./_components/org-control";
 
 export async function generateMetadata() {
-  const orgSlug = 2020;
-
+  // const orgSlug = 2020;
   // return {
   //   title: startCase(orgSlug || "organization"),
   // };

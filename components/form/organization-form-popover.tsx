@@ -54,6 +54,7 @@ export const OrgFormPopover = ({
     const image = formData.get("image") as string;
 
     execute({ name, image });
+    
   };
 
   return (
@@ -61,11 +62,11 @@ export const OrgFormPopover = ({
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent
         align={align}
-        className="w-80 pt-3"
+        className="w-80 pt-3 create-work"
         side={side}
         sideOffset={sideOffset}
       >
-        <div className="text-sm font-medium text-center text-neutral-600 pb-4">
+        <div className="text-sm font-medium text-center  text-neutral-600 pb-4">
           Create Workspace
         </div>
         <PopoverClose ref={closeRef} asChild>

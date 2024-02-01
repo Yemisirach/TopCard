@@ -4,6 +4,5 @@ import { Organization } from "@prisma/client";
 import { ActionState } from "@/lib/create-safe-action";
 
 import { CreateOrganization } from "./schema";
-// import { Session } from "next-auth";
 export type InputType = z.infer<typeof CreateOrganization>;
 export type ReturnType = ActionState<InputType, Organization>;

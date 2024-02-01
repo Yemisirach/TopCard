@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Accordion } from "@/components/ui/accordion";
-import { NavItem, Organization } from "./nav-item";
+import { NavItem } from "./nav-item";
 import { useOrganization, useOrganizationList } from "@/hooks/use-organization"; // Adjust the path accordingly
 
 interface SidebarProps {
