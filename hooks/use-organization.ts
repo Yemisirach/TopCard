@@ -1,19 +1,20 @@
-"use client"
+"use client";
 import { db } from "@/lib/db";
 import { useEffect, useState } from "react";
 import { Organization } from "./types"; // Adjust the path accordingly
+interface OrganizationHookResult {
+  organization: Organization | null;
+  isLoaded: boolean;
+}
 
-export const useOrganization = () => {
+export const useOrganization = (): OrganizationHookResult => {
   const [organization, setOrganization] = useState<Organization | null>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
-  // Fetch organization details from your API or wherever they are stored
   useEffect(() => {
-    // Replace this with your actual Prisma call to fetch organization details
     const fetchOrganization = async () => {
       try {
         const organizationData = await db.organization.findMany();
-        // Assuming organizationData is an array, you may want to pick the first item or handle multiple items appropriately
         const data = organizationData.length > 0 ? organizationData[0] : null;
 
         setOrganization(data);
@@ -30,13 +31,16 @@ export const useOrganization = () => {
   return { organization, isLoaded };
 };
 
-export const useOrganizationList = () => {
+interface OrganizationListHookResult {
+  organizations: Organization[];
+  isLoaded: boolean;
+}
+
+export const useOrganizationList = (): OrganizationListHookResult => {
   const [organizations, setOrganizations] = useState<Organization[]>([]);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
-
   useEffect(() => {
-  
     const fetchOrganizationList = async () => {
       try {
         const organizationData = await db.organization.findMany();

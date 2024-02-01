@@ -19,7 +19,7 @@ const textFont = Poppins({
 });
 export default function Home() {
   return (
-    <main className="flex h-full flex-row items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
+    <main className="flex h-full flex-row items-center  justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-[#113b70]">
       <div className="top flex items-center justify-center flex-col">
         <div
           className={cn(
@@ -28,7 +28,7 @@ export default function Home() {
           )}
         >
           <div className="mb-4 flex items-center border shadow-sm p-4 bg-amber-100 text-bluelight-700 rounded-full uppercase">
-            <Medal className="h-6 w-6 mr-2" />
+            <Medal className="h-6 w-6 mr-2 text-blue-300" />
             TOP Beverage industry and trading
           </div>
           <h1 className="text-3xl md:text-5xl text-center text-neutral-100 mb-1">
@@ -50,7 +50,7 @@ export default function Home() {
         </div>
         <LoginButton asChild>
           <Button
-            className="bg-gradient-to-r mt-3 from-gray-600 to-blue-600 text-white"
+            className="bg-gradient-to-r mt-3 from-gray-600 to-[#0070b7] text-white"
             variant="secondary"
             size="lg"
           >

@@ -19,6 +19,7 @@ import { useProModal } from "@/hooks/use-pro-modal";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
 import { FormPicker } from "./form-picker";
+import { revalidatePath } from "next/cache";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -42,6 +43,7 @@ export const OrgFormPopover = ({
       toast.success("Organization created!");
       closeRef.current?.click();
       router.push(`/organization/${data.id}`);
+      revalidatePath(`/organization/${data.id}`);
     },
     onError: (error) => {
       toast.error(error);
@@ -54,7 +56,8 @@ export const OrgFormPopover = ({
     const image = formData.get("image") as string;
 
     execute({ name, image });
-    
+   
+
   };
 
   return (

@@ -149,6 +149,7 @@ enum UserRole {
 model Board {
   id            String @id @default(uuid())
   orgId         String
+    organization  Organization @relation(fields: [orgId], references: [id])
   title         String
   imageId       String
   imageThumbUrl String @db.Text
@@ -231,6 +232,7 @@ model Organization {
   imageFullUrl  String @db.Text
   imageUserName String @db.Text
   imageLinkHTML String @db.Text
+   boards   Board[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }

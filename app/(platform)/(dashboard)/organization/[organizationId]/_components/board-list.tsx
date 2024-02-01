@@ -1,19 +1,21 @@
+"use client";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useParams, useSearchParams } from "next/navigation";
 import { HelpCircle, User2 } from "lucide-react";
-
 import { db } from "@/lib/db";
 import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FormPopover } from "@/components/form/form-popover";
-import { useParams } from "next/navigation";
 
 export const BoardList = async () => {
   // const userId="2021"
   const orgId = "2020";
   // const params = useParams();
-  // const orgId= params.organizationId as string
+  // console.log("🚀 ~ BoardList ~ params:", params);
 
+  // const orgId = params?.organizationId as string;
+  // const searchParams = useSearchParams();
+  // const orgId = searchParams?.get("organizationId");
   if (!orgId) {
     return redirect("/createOrganization");
   }
@@ -26,6 +28,8 @@ export const BoardList = async () => {
       createdAt: "desc",
     },
   });
+
+ 
 
   return (
     <div className="space-y-4">

@@ -2,8 +2,7 @@ import { Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
 import { BoardList } from "./_components/board-list";
 
-const OrganizationIdPage = async () => {
-
+const OrganizationIdPage = () => {
   return (
     <div className="w-full mb-20">
       <Separator className="my-4" />

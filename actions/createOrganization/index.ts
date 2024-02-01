@@ -6,6 +6,8 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { CreateOrganization } from "./schema";
+import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const session = await auth();
@@ -21,17 +23,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   const [imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName] =
     image.split("|");
 
-  // if (
-  //   !imageId ||
-  //   !imageThumbUrl ||
-  //   !imageFullUrl ||
-  //   !imageUserName ||
-  //   !imageLinkHTML
-  // ) {
-  //   return {
-  //     error: "Missing fields. Failed to create board.",
-  //   };
-  // }
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageUserName ||
+    !imageLinkHTML
+  ) {
+    return {
+      error: "Missing fields. Failed to create board.",
+    };
+  }
 
   const userId = session?.user?.id;
 
@@ -41,8 +43,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
+  let organization;
   try {
-    const organization = await db.organization.create({
+    organization = await db.organization.create({
       data: {
         name,
         userId,
@@ -58,15 +61,19 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       where: { id: userId },
       data: { orgId: organization.id },
     });
-
-    revalidatePath(`/organization/${organization.id}`);
-    return { data: organization };
+    await createAuditLog({
+      entityTitle: organization.name,
+      entityId: organization.id,
+      entityType: ENTITY_TYPE.ORGANIZATION,
+      action: ACTION.CREATE,
+    });
   } catch (error) {
-    console.error("Error creating the organization:", error);
     return {
       error: "Error creating the organization.",
     };
   }
+  revalidatePath(`/organization/${organization.id}`);
+  return { data: organization };
 };
 
 export const CreateOrganizations = createSafeAction(

@@ -115,7 +115,7 @@ export const Navbar = async () => {
                   </Button>
                 </LoginButton>
                 <Button
-                  className="h-[40px] bg-gradient-to-r from-gray-600 to-blue-600 text-white"
+                  className="h-[40px] bg-gradient-to-r from-gray-600 to-[#0070b7] text-white"
                   size="sm"
                   asChild
                 >
