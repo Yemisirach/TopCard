@@ -17,7 +17,7 @@ export const Navbar = async () => {
     : "";
 
   return (
-    <div className="top-nav fixed top-0 w-full h-14 px-4 shadow-md bg-white-100 flex items-center">
+    <div className="top-nav fixed top-0 w-full h-14 pr-2 shadow-md bg-white-100 flex items-center">
       <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between">
         {isLoggedIn ? (
           <div className="flex items-center p-1 align-middle">

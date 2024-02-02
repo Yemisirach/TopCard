@@ -9,6 +9,7 @@ const font = Poppins({
 import localFont from "next/font/local";
 import { Medal } from "lucide-react";
 import { Topbg } from "@/components/topbg";
+import { Navbar } from "./_components/navbar";
 const headingFont = localFont({
   src: "../public/fonts/font.woff2",
 });
@@ -19,6 +20,8 @@ const textFont = Poppins({
 });
 export default function Home() {
   return (
+    <>
+    <Navbar />
     <main className="flex h-full flex-row items-center  justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-[#113b70]">
       <div className="top flex items-center justify-center flex-col">
         <div
@@ -62,5 +65,7 @@ export default function Home() {
         <Topbg />
       </div>
     </main>
+    </>
+    
   );
 }

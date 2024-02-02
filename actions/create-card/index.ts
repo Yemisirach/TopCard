@@ -10,11 +10,12 @@ import { createSafeAction } from "@/lib/create-safe-action";
 
 import { CreateCard } from "./schema";
 import { InputType, ReturnType } from "./types";
+import { auth } from "@/auth";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const userId="2021"
-  const orgId = "2020";
-
+  const orgId = "34a9b24f-c471-4d83-865b-679b7c9bede1";
+  const session = await auth();
+  const userId = session?.user?.id;
   if (!userId || !orgId) {
     return {
       error: "Unauthorized",
@@ -64,8 +65,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     });
   } catch (error) {
     return {
-      error: "Failed to create."
-    }
+      error: "Failed to create.",
+    };
   }
 
   revalidatePath(`/board/${boardId}`);

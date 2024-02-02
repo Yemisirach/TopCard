@@ -1,9 +1,9 @@
-import { Navbars } from "./_components/navbar";
+import { DshBoardNavbar } from "./_components/navbar";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-full bg-white top-card">
-      <Navbars />
+    <div className="h-full  top-card">
+      <DshBoardNavbar />
       {children}
     </div>
   );

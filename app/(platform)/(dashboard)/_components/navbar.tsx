@@ -11,11 +11,16 @@ import { LoginButton } from "@/components/auth/login-button";
 import { UserButton } from "@/components/auth/user-button";
 import Link from "next/link";
 
-export const Navbars = async () => {
+export const DshBoardNavbar = async () => {
   const user = await currentUser();
   console.log(user, "yemit");
   // @ts-ignore
   const isLoggedIn = user?.isOAuth === true;
+  const firstName = user?.name
+    ? user.name.split(" ")[0].charAt(0).toUpperCase() +
+      user.name.split(" ")[0].slice(1)
+    : "";
+
   return (
     <nav className="fixed z-50  top-0 pr-2 w-full h-14 shadow-sm flex items-center">
       <MobileSidebar />
@@ -98,8 +103,11 @@ export const Navbars = async () => {
           <div className="space-x-4 md:block md:w-auto flex flex-row items-center justify-between w-full">
             <div>
               {isLoggedIn ? (
-                <div className="flex mr-4 items-center p-1 align-middle">
-                  <div className="pr-3">{user?.name}</div>
+                <div className="flex items-center p-1 align-middle">
+                  <div className="flex pr-3">
+                    <article className="pr-1">Hi</article>
+                    {firstName}
+                  </div>
                   <UserButton />
                 </div>
               ) : (

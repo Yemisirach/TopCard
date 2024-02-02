@@ -1,6 +1,6 @@
-"use client";
+// "use client";
 import Link from "next/link";
-import { redirect, useParams, useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 import { HelpCircle, User2 } from "lucide-react";
 import { db } from "@/lib/db";
 import { Hint } from "@/components/hint";
@@ -28,8 +28,6 @@ export const BoardList = async () => {
       createdAt: "desc",
     },
   });
-
- 
 
   return (
     <div className="space-y-4">
