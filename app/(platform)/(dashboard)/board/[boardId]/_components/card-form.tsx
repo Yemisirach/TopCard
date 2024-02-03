@@ -42,7 +42,6 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
       toast.error(error);
     },
   });
-  
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {

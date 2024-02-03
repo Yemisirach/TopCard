@@ -60,7 +60,7 @@ export const ListItem = ({
                     data.cards.length > 0 ? "mt-2" : "mt-0",
                   )}
                 >
-                  {data?.cards?.map((card, index) => (
+                  {data.cards.map((card, index) => (
                     <CardItem
                       index={index}
                       key={card.id}

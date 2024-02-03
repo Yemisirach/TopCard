@@ -1,4 +1,3 @@
-// import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
@@ -12,12 +11,10 @@ interface BoardIdPageProps {
 }
 
 const BoardIdPage = async ({ params }: BoardIdPageProps) => {
-  // const { orgId } = auth();
-  // const userId="2021"
-  const orgId = "2020";
+  const orgId = "4213bdcc-01e9-4845-9ac8-3844a23ee849";
 
   if (!orgId) {
-    redirect("/board");
+    redirect("/createOrganization");
   }
 
   const lists = await db.list.findMany({
@@ -40,8 +37,9 @@ const BoardIdPage = async ({ params }: BoardIdPageProps) => {
   });
 
   return (
-    <div className="top-card p-4 h-full overflow-x-auto">
-      <ListContainer boardId={params.boardId} data={lists} />
+    <div className="p-4 h-full overflow-x-auto">
+      {/* <ListContainer boardId={params.boardId} data={lists} /> */}
+      hi yemi
     </div>
   );
 };

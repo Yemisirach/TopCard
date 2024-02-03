@@ -9,10 +9,12 @@ import { CreateList } from "./schema";
 import { InputType, ReturnType } from "./types";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { auth } from "@/auth";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const userId="2021"
-  const orgId = "2020";
+  const session = await auth();
+  const userId = session?.user?.id;
+  const orgId = "de59f818-2b2a-4339-9c58-e2f5301900ab";
 
   if (!userId || !orgId) {
     return {
@@ -58,11 +60,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: list.id,
       entityType: ENTITY_TYPE.LIST,
       action: ACTION.CREATE,
-    })
+    });
   } catch (error) {
     return {
-      error: "Failed to create."
-    }
+      error: "Failed to create.",
+    };
   }
 
   revalidatePath(`/board/${boardId}`);
