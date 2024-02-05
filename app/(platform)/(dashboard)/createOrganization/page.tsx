@@ -31,6 +31,23 @@ import { OrganizationList } from "./_components/organization-list";
 // import { Button } from "@/components/ui/button";
 
 const OrganizationForm = async () => {
+  // async function getUserOrganizations(userId) {
+  //   const userOrganizations = await db.userOrganization.findMany({
+  //     where: {
+  //       userId: userId,
+  //     },
+  //     include: {
+  //       organization: true,
+  //     },
+  //   });
+  //   return userOrganizations.map((uo) => uo.organization);
+  // }
+  
+  // // Example usage
+  // const userId = 'your_user_id'; // Replace with the actual user ID from the session
+  
+  // const userOrganizations = await getUserOrganizations(userId);
+  // console.log('User Organizations:', userOrganizations);
   // const organizations = await db.organization.findMany();
 
   return (
