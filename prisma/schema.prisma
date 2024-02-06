@@ -25,12 +25,15 @@ model User {
 model Organization {
   id                 String             @id @default(uuid())
   name               String
+  userId             String
   imageId            String
   imageThumbUrl      String             @db.Text
   imageFullUrl       String             @db.Text
   imageUserName      String             @db.Text
   imageLinkHTML      String             @db.Text
   members            OrganizationUser[]
+   createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model OrganizationUser {
@@ -39,11 +42,10 @@ model OrganizationUser {
   userId         String
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId String
-
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
   @@unique([userId, organizationId])
 }
-
-
 
 model Account {
   id                 String  @id @default(cuid())
@@ -58,9 +60,7 @@ model Account {
   scope              String?
   id_token           String?  @db.Text
   session_state      String?
-
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   @@unique([provider, providerAccountId])
 }
 
@@ -201,3 +201,5 @@ model Invitation {
   token          String  @unique
   expiry         DateTime
 }
+
+

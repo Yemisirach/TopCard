@@ -43,13 +43,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       };
     }
 
-    let organization;
+    var organization;
     try {
       organization = await db.organization.create({
         data: {
           name,
-          userId,
           imageId,
+          userId,
           imageThumbUrl,
           imageFullUrl,
           imageUserName,
