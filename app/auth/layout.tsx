@@ -1,8 +1,13 @@
+import { Navbar } from "../_components/navbar";
+
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-[800px] flex items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
-      {children}
-    </div>
+    <>
+      <Navbar />
+      <div className="h-[800px] top-sign-in flex items-center justify-center bg-[#ffffff]">
+        {children}
+      </div>
+    </>
   );
 };
 

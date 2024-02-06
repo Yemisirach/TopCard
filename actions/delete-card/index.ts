@@ -10,10 +10,13 @@ import { DeleteCard } from "./schema";
 import { InputType, ReturnType } from "./types";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { auth } from "@/auth";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const userId="2021"
-  const orgId = "2020";
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  const orgId = "07557323-5ff3-476d-8d72-a61dc392a294";
 
   if (!userId || !orgId) {
     return {
@@ -41,11 +44,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: card.id,
       entityType: ENTITY_TYPE.CARD,
       action: ACTION.DELETE,
-    })
+    });
   } catch (error) {
     return {
-      error: "Failed to delete."
-    }
+      error: "Failed to delete.",
+    };
   }
 
   revalidatePath(`/board/${boardId}`);

@@ -10,10 +10,12 @@ import { UpdateList } from "./schema";
 import { InputType, ReturnType } from "./types";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { auth } from "@/auth";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const userId="2021"
-  const orgId = "2020";
+  const session = await auth();
+  const userId = session?.user?.id;
+  const orgId = "07557323-5ff3-476d-8d72-a61dc392a294";
 
   if (!userId || !orgId) {
     return {
@@ -43,11 +45,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: list.id,
       entityType: ENTITY_TYPE.CARD,
       action: ACTION.UPDATE,
-    })
+    });
   } catch (error) {
     return {
-      error: "Failed to update."
-    }
+      error: "Failed to update.",
+    };
   }
 
   revalidatePath(`/board/${boardId}`);

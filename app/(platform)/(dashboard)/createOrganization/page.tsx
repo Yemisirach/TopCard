@@ -27,27 +27,40 @@ import { db } from "@/lib/db";
 // import { Organization } from "./Organization";
 // import { FaBuilding } from "react-icons/fa";
 import { OrganizationList } from "./_components/organization-list";
+import { auth } from "@/auth";
+import { error } from "console";
 // import Link from "next/link";
 // import { Button } from "@/components/ui/button";
 
 const OrganizationForm = async () => {
-  // async function getUserOrganizations(userId) {
-  //   const userOrganizations = await db.userOrganization.findMany({
-  //     where: {
-  //       userId: userId,
-  //     },
-  //     include: {
-  //       organization: true,
-  //     },
-  //   });
-  //   return userOrganizations.map((uo) => uo.organization);
-  // }
-  
-  // // Example usage
-  // const userId = 'your_user_id'; // Replace with the actual user ID from the session
-  
-  // const userOrganizations = await getUserOrganizations(userId);
-  // console.log('User Organizations:', userOrganizations);
+  const session = await auth();
+
+  async function getUserOrganizations(userId: string | undefined) {
+    // Check if userId is defined before making the query
+    if (userId) {
+      const userOrganizations = await db.organizationUser.findMany({
+        where: {
+          userId: userId,
+        },
+        include: {
+          organization: true,
+        },
+      });
+      return userOrganizations.map((uo) => uo.organization);
+    } else {
+      // Handle the case where userId is undefined
+      console.error('User ID is undefined');
+      return [
+        error
+      ]; // Or handle it based on your use case
+    }
+  }
+
+  // Example usage
+  const userId = session?.user?.id; // Replace with the actual user ID from the session
+
+  const userOrganizations = await getUserOrganizations(userId);
+  console.log("User Organizations:", userOrganizations);
   // const organizations = await db.organization.findMany();
 
   return (

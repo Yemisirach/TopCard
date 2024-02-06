@@ -71,11 +71,23 @@ body {
 }
 .Top-inputs {
   margin-bottom: 1rem;
-  height: 40px;
+  height: 42px;
+  background-color: #f4f6f8;
+  border: 1px solid #113b70;
+  color: #113b70;
+}
+.Top-input-un {
+  margin-bottom: 1rem;
+  height: 44px;
+  background-color: #0070b7;
+  border: 1px solid #113b70;
+  color: #ffffff;
+  font-size: 15px;
 }
 .Top-input {
-  color: #212121;
-  background-color: rgb(235, 237, 253);
+  color: #113b70;
+  background-color: #ffffff;
+  border: 0.5px solid #113b70;
   height: 44px;
   border-radius: 6px;
 }
@@ -97,9 +109,10 @@ body {
 .sign-ins {
   margin-top: 3.6rem !important;
   background-color: #ffffff;
-  border: 1px rgb(0, 72, 255) solid;
+  border: 1px #0070b7 solid;
   border-radius: 8px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 5px #e9eff3;
+  width: 400px !important;
 }
 .top-nav {
   font-size: 14px;
@@ -117,6 +130,9 @@ body {
   color: rgb(39 39 118);
   border: 1px rgb(39 39 118) solid;
 }
-.top-footer{
+.top-footer {
   color: #212121;
+}
+.top-sign-in {
+  color: #113b70;
 }

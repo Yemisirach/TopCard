@@ -53,6 +53,7 @@ export const {
       return true;
     },
     async session({ token, session }) {
+      console.log("🚀 ~ session ~ session:", session);
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
@@ -64,11 +65,25 @@ export const {
       if (session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
+      const orgId = token.orgId;
+
+      // Update the user's session with the organization ID
+      if (session.user) {
+        session.user.orgId = orgId;
+      }
 
       if (session.user) {
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.orgId = token.orgId;
+        console.log(session.user.orgId, "orgid");
         session.user.isOAuth = token.isOAuth as boolean;
+      }
+      const organizations = token.organizations || [];
+
+      // Update the user's session with the array of organization IDs
+      if (session.user) {
+        session.user.organizations  = organizations;
       }
 
       return session;
@@ -80,9 +95,8 @@ export const {
       if (existingUser) {
         // Assuming that organizationId is a property of the user model
         token.orgId = existingUser.orgId;
-        console.log("🚀 ~ jwt ~ token:", token.orgId);
       }
-      console.log("🚀 ~ jwt ~ token:", token.orgId);
+     
 
       if (!existingUser) return token;
 

@@ -8,8 +8,8 @@ export async function GET(
   { params }: { params: { cardId: string } }
 ) {
   try {
-    const userId="2021"
-    const orgId = "2020";
+    const userId = "2021";
+    const orgId = "07557323-5ff3-476d-8d72-a61dc392a294";
 
     if (!userId || !orgId) {
       return new NextResponse("Unauthorized", { status: 401 });
