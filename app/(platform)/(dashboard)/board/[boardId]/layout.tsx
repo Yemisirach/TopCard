@@ -11,7 +11,7 @@ export async function generateMetadata({
   params: { boardId: string };
 }) {
   // const userId="2021"
-  const orgId = "2020";
+  const orgId = "007164ea-d03f-4919-b03a-51fed02d768f";
 
   if (!orgId) {
     return {
@@ -38,7 +38,7 @@ const BoardIdLayout = async ({
   children: React.ReactNode;
   params: { boardId: string };
 }) => {
-  const orgId = "2020";
+  const orgId = "007164ea-d03f-4919-b03a-51fed02d768f";
 
   if (!orgId) {
     redirect("/board/setting");

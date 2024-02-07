@@ -6,7 +6,7 @@ export async function generateMetadata({
     params: { orgId: string };
   }) {
     const userId = "qwertyuioplkjhgf";
-    const orgId = "2020"; // This value seems hardcoded, please make sure it's intended
+    const orgId = "007164ea-d03f-4919-b03a-51fed02d768f"; // This value seems hardcoded, please make sure it's intended
   
     if (!orgId) {
       return {

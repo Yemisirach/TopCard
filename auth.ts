@@ -80,9 +80,9 @@ export const {
       if (existingUser) {
         // Assuming that organizationId is a property of the user model
         token.orgId = existingUser.orgId;
-        console.log("🚀 ~ jwt ~ token:", token.orgId);
+        // console.log("🚀 ~ jwt ~ token:", token.orgId);
       }
-      console.log("🚀 ~ jwt ~ token:", token.orgId);
+      // console.log("🚀 ~ jwt ~ token:", token.orgId);
 
       if (!existingUser) return token;
 

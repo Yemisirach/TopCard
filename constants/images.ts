@@ -417,7 +417,7 @@ export const defaultImages = [
       "topic_submissions": {
           "animals": {
               "status": "approved",
-              "approved_on": "2020-05-01T11:26:23Z"
+              "approved_on": "007164ea-d03f-4919-b03a-51fed02d768f-05-01T11:26:23Z"
           }
       },
       "user": {
@@ -828,7 +828,7 @@ export const defaultImages = [
       "topic_submissions": {
           "nature": {
               "status": "approved",
-              "approved_on": "2020-04-06T14:20:12Z"
+              "approved_on": "007164ea-d03f-4919-b03a-51fed02d768f-04-06T14:20:12Z"
           }
       },
       "user": {

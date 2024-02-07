@@ -1,49 +1,75 @@
 generator client {
-    provider = "prisma-client-js"
-  }
-  datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-  }
+  provider = "prisma-client-js"
+}
 
-  
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model User {
-  id                    String                 @id @default(cuid())
-  email                 String?                @unique
+  id                    String            @id @default(cuid())
+  name                  String?
+  email                 String?           @unique
   emailVerified         DateTime?
   image                 String?
-  name                  String?
   password              String?
-  isTwoFactorEnabled    Boolean                @default(false)
-  role                  UserRole               @default(ADMIN)
-  orgname               String?                // Added orgname field
+  role                  UserRole          @default(USER)
   accounts              Account[]
+  userSettings          UserSettings[]
+  isTwoFactorEnabled    Boolean           @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  organizations         OrganizationUser[]
+}
+
+model Organization {
+  id                 String             @id @default(uuid())
+  name               String
+  userId             String
+  imageId            String
+  imageThumbUrl      String             @db.Text
+  imageFullUrl       String             @db.Text
+  imageUserName      String             @db.Text
+  imageLinkHTML      String             @db.Text
+  members            OrganizationUser[]
+  boards             Board[]            // Added relationship
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+}
+
+model OrganizationUser {
+  id             String       @id @default(cuid())
+  user           User         @relation(fields: [userId], references: [id])
+  userId         String
+  organization   Organization @relation(fields: [orgId], references: [id])
+  orgId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  @@unique([userId, orgId])
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([provider, providerAccountId])
 }
 
 model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
   token   String   @unique
   expires DateTime
-  email   String
-  id      String   @id @default(cuid())
 
   @@unique([email, token])
 }
@@ -67,58 +93,57 @@ model TwoFactorToken {
 }
 
 model TwoFactorConfirmation {
-  id     String @id @default(cuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id      String   @id @default(cuid())
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
 }
 
 enum UserRole {
   ADMIN
+  SUPERADMIN
   USER
 }
+
 model Board {
-  id            String @id @default(uuid())
-  orgId         String
+  id            String   @id @default(uuid())
+  organization  Organization @relation(fields: [orgId], references: [id]) // Added relationship
+  orgId  String
   title         String
   imageId       String
-  imageThumbUrl String @db.Text
-  imageFullUrl  String @db.Text
-  imageUserName String @db.Text
-  imageLinkHTML String @db.Text
-
+  imageThumbUrl String   @db.Text
+  imageFullUrl  String   @db.Text
+  imageUserName String   @db.Text
+  imageLinkHTML String   @db.Text
   lists         List[]
-
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
 
+
 model List {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
   title     String
   order     Int
-
   boardId   String
-  board     Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
-
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
   cards     Card[]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   @@index([boardId])
 }
 
 model Card {
-  id          String    @id @default(uuid()) 
+  id          String   @id @default(uuid()) 
   title       String
   order       Int
   description String?  @db.Text
 
   listId      String
-  list        List      @relation(fields: [listId], references: [id], onDelete: Cascade)
-
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  list        List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   checklist   ChecklistItem[]
   @@index([listId])
 }
@@ -140,6 +165,7 @@ enum ENTITY_TYPE {
   BOARD
   LIST
   CARD
+  ORGANIZATION
 }
 
 model AuditLog {
@@ -152,16 +178,26 @@ model AuditLog {
   userId      String
   userImage   String @db.Text
   userName    String @db.Text
-
   createdAt   DateTime @default(now())
-  updatedAt   DateTime  @updatedAt
+  updatedAt   DateTime @updatedAt
 }
 
-model Organization {
-  id      Int      @id @default(autoincrement())
-  name    String
-  profileImage   String?  
-  
+model UserSettings {
+  id      String @id @default(cuid())
+  userId  String @db.Text
+  orgId   String?
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+  @@index([orgId])
 }
 
-
+model Invitation {
+  id            String   @id @default(cuid())
+  invitingUserId  String
+  invitedEmail  String
+  orgId  String
+  boardId        String?
+  status         String
+  token          String  @unique
+  expiry         DateTime
+}

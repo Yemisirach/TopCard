@@ -11,7 +11,7 @@ import { LoginButton } from "@/components/auth/login-button";
 import { UserButton } from "@/components/auth/user-button";
 import Link from "next/link";
 
-export const DshBoardNavbar = async () => {
+export const DashBoardNavbar = async () => {
   const user = await currentUser();
   console.log(user, "yemit");
   // @ts-ignore
