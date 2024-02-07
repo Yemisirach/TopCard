@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 // import { admin } from "@/actions/admin";
 // import { RoleGate } from "@/components/auth/role-gate";
