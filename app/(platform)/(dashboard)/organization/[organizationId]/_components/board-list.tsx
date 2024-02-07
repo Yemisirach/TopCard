@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect} from "next/navigation";
 import { HelpCircle, User2 } from "lucide-react";
 
 import { db } from "@/lib/db";
@@ -8,11 +8,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { FormPopover } from "@/components/form/form-popover";
 
 export const BoardList = async () => {
-  // const userId="2021"
+  // const orgId = params?.organizationId as string;
+  // const searchParams = useSearchParams();
+  // const orgId = searchParams?.get("organizationId");
+  // console.log("🚀 ~ BoardList ~ orgId:", orgId);
+
   const orgId = "007164ea-d03f-4919-b03a-51fed02d768f";
 
   if (!orgId) {
-    return redirect("/select-org");
+    return redirect("/createOrganization");
   }
 
   const boards = await db.board.findMany({

@@ -35,14 +35,22 @@ model Organization {
   boards             Board[]            // Added relationship
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
+ permissions        OrganizationPermission[]  // Add permissions field
 }
 
+model OrganizationPermission {
+  id            String       @id @default(cuid())
+  organization  Organization @relation(fields: [orgId], references: [id])
+  orgId         String
+  role          UserRole     // Role associated with the permission
+  // Add other permission-related fields as needed
+}
 model OrganizationUser {
   id             String       @id @default(cuid())
   user           User         @relation(fields: [userId], references: [id])
   userId         String
   organization   Organization @relation(fields: [orgId], references: [id])
-  orgId String
+  orgId          String
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   @@unique([userId, orgId])
@@ -117,10 +125,17 @@ model Board {
   imageUserName String   @db.Text
   imageLinkHTML String   @db.Text
   lists         List[]
+  permissions        BoardPermission[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
-
+model BoardPermission {
+  id         String       @id @default(cuid())
+  board      Board        @relation(fields: [boardId], references: [id])
+  boardId    String
+  role       UserRole     // Role associated with the permission
+  // Add other permission-related fields as needed
+}
 
 model List {
   id        String   @id @default(uuid())
@@ -166,6 +181,18 @@ enum ENTITY_TYPE {
   LIST
   CARD
   ORGANIZATION
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REVOKED
+}
+
+enum OrganizationEnrollmentMode {
+  MANUAL_INVITATION
+  AUTOMATIC_INVITATION
+  AUTOMATIC_SUGGESTION
 }
 
 model AuditLog {
