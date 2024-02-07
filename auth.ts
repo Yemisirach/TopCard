@@ -53,17 +53,6 @@ export const {
       return true;
     },
     async session({ token, session }) {
-      // localStorage.setItem(
-      //   "user_info",
-      //   JSON.stringify({
-      //     id: token.sub,
-      //     role: token.role,
-      //     is_two_factor_enabled: token.isTwoFactorEnabled,
-      //     name: token.name,
-      //     email: token.email,
-      //     is_oauth: token.isOAuth,
-      //   })
-      // );
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
@@ -85,20 +74,15 @@ export const {
       return session;
     },
     async jwt({ token }) {
-      // localStorage.setItem(
-      //   "user_info",
-      //   JSON.stringify({
-      //     id: token.sub,
-      //     role: token.role,
-      //     is_two_factor_enabled: token.isTwoFactorEnabled,
-      //     name: token.name,
-      //     email: token.email,
-      //     is_oauth: token.isOAuth,
-      //   })
-      // );
       if (!token.sub) return token;
 
       const existingUser = await getUserById(token.sub);
+      if (existingUser) {
+        // Assuming that organizationId is a property of the user model
+        token.orgId = existingUser.orgId;
+        console.log("🚀 ~ jwt ~ token:", token.orgId);
+      }
+      console.log("🚀 ~ jwt ~ token:", token.orgId);
 
       if (!existingUser) return token;
 

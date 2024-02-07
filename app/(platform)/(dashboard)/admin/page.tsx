@@ -201,56 +201,56 @@
 
 // export default AdminPage;
 
-import React, { useState } from "react";
-import OrganizationForm from "@/app/api/organizations";
-import OrganizationList from "@/app/api/organizations";
-import { Organization, UserRole } from "@prisma/client";
-import OrganizationSwitcher from "@/components/auth/OrganizationSwitcher";
-import { RoleGate } from "@/components/auth/role-gate";
-import { FormSuccess } from "@/components/form-success";
-import { redirect } from "next/navigation";
+// import React, { useState } from "react";
+// import OrganizationForm from "@/app/api/organizations";
+// import OrganizationList from "@/app/api/organizations";
+// import { Organization, UserRole } from "@prisma/client";
+// import OrganizationSwitcher from "@/components/auth/OrganizationSwitcher";
+// import { RoleGate } from "@/components/auth/role-gate";
+// import { FormSuccess } from "@/components/form-success";
+// import { redirect } from "next/navigation";
 
-const CreateOrganizationPage: React.FC = () => {
-  const [organizations, setOrganizations] = useState<Organization[]>([]);
-  const [selectedOrganization, setSelectedOrganization] =
-    useState<Organization | null>(null);
-  const orgId = 20202;
-  const handleCreateOrganization = (newOrganization: Organization) => {
-    // Add the new organization to the list
-    setOrganizations((prevOrganizations) => [
-      ...prevOrganizations,
-      newOrganization,
-    ]);
+// const CreateOrganizationPage: React.FC = () => {
+//   const [organizations, setOrganizations] = useState<Organization[]>([]);
+//   const [selectedOrganization, setSelectedOrganization] =
+//     useState<Organization | null>(null);
+//   const orgId = 20202;
+//   const handleCreateOrganization = (newOrganization: Organization) => {
+//     // Add the new organization to the list
+//     setOrganizations((prevOrganizations) => [
+//       ...prevOrganizations,
+//       newOrganization,
+//     ]);
 
-    // Set the newly created organization as the selected one
-    setSelectedOrganization(newOrganization);
-    redirect(`/organization/${orgId}`);
-  };
+//     // Set the newly created organization as the selected one
+//     setSelectedOrganization(newOrganization);
+//     redirect(`/organization/${orgId}`);
+//   };
 
-  const handleSelectOrganization = (organization: Organization) => {
-    // Set the selected organization
-    setSelectedOrganization(organization);
-  };
+//   const handleSelectOrganization = (organization: Organization) => {
+//     // Set the selected organization
+//     setSelectedOrganization(organization);
+//   };
 
-  return (
-    <div className="mt-20 pt-10">
-      <div className="h-[500px] w-[380px] m-auto align-middle">
-        {/* <RoleGate allowedRole={UserRole.ADMIN}>
-          <FormSuccess message="You are allowed to see this content!" />
-        </RoleGate> */}
-        <p className="text-lg flex align-middle w-[380px] font-medium"></p>
+//   return (
+//     <div className="mt-20 pt-10">
+//       <div className="h-[500px] w-[380px] m-auto align-middle">
+//         {/* <RoleGate allowedRole={UserRole.ADMIN}>
+//           <FormSuccess message="You are allowed to see this content!" />
+//         </RoleGate> */}
+//         <p className="text-lg flex align-middle w-[380px] font-medium"></p>
 
-        <OrganizationForm onCreateOrganization={handleCreateOrganization} />
-        {/* <OrganizationSwitcher
-          organizations={organizations}
-          selectedOrganization={
-            selectedOrganization}
-          onSelectOrganization={handleSelectOrganization}
-        /> */}
-        {/* <OrganizationList organizations={organizations} /> */}
-      </div>
-    </div>
-  );
-};
+//         <OrganizationForm onCreateOrganization={handleCreateOrganization} />
+//         {/* <OrganizationSwitcher
+//           organizations={organizations}
+//           selectedOrganization={
+//             selectedOrganization}
+//           onSelectOrganization={handleSelectOrganization}
+//         /> */}
+//         {/* <OrganizationList organizations={organizations} /> */}
+//       </div>
+//     </div>
+//   );
+// };
 
-export default CreateOrganizationPage;
+// export default CreateOrganizationPage;
