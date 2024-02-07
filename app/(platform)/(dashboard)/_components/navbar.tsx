@@ -22,7 +22,7 @@ export const DashBoardNavbar = async () => {
     : "";
 
   return (
-    <nav className="fixed z-50  top-0 pr-2 w-full h-14 shadow-sm flex items-center">
+    <nav className="fixed z-50  top-0 pr-2 w-full h-14 bg-white shadow-sm flex items-center">
       <MobileSidebar />
       <div className="top-navs fixed top-0 w-full h-14 px-4 border-b shadow-md  flex items-center">
         <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between">

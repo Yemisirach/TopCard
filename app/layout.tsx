@@ -5,7 +5,6 @@ import { auth } from "@/auth";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Footer } from "./_components/footer";
-import { Navbar } from "./_components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +25,6 @@ export default async function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Toaster />
-          <Navbar />
           {children}
           <Footer />
         </body>
