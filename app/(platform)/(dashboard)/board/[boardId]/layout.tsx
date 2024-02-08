@@ -10,8 +10,7 @@ export async function generateMetadata({
 }: {
   params: { boardId: string };
 }) {
-  
-  const orgId = "007164ea-d03f-4919-b03a-51fed02d768f";
+  const orgId = "e153fc92-3787-4c83-a166-1b103a506c4a";
 
   if (!orgId) {
     return {
@@ -38,7 +37,7 @@ const BoardIdLayout = async ({
   children: React.ReactNode;
   params: { boardId: string };
 }) => {
-  const orgId = "007164ea-d03f-4919-b03a-51fed02d768f";
+  const orgId = "e153fc92-3787-4c83-a166-1b103a506c4a";
 
   if (!orgId) {
     redirect("/board/setting");
@@ -57,7 +56,7 @@ const BoardIdLayout = async ({
 
   return (
     <div
-      className="relative h-full bg-no-repeat bg-cover bg-center"
+      className="relative  bg-no-repeat bg-cover bg-center"
       style={{ backgroundImage: `url(${board.imageFullUrl})` }}
     >
       <BoardNavbar data={board} />

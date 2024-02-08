@@ -13,11 +13,10 @@ import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { auth } from "@/auth";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const userId = "2021";
-  const session = auth();
-  console.log("🚀 ~ handler ~ session:", session);
-  // const userId = session?.user.id;
-  const orgId = "007164ea-d03f-4919-b03a-51fed02d768f";
+  const session = await auth();
+
+  const userId = session?.user?.id;
+  const orgId = "e153fc92-3787-4c83-a166-1b103a506c4a";
 
   if (!userId || !orgId) {
     return {

@@ -37,23 +37,25 @@ export const OrganizationList = async () => {
           <Link
             key={org.id}
             href={`/organization/${org.id}`}
-            className="group relative aspect-video bg-no-repeat bg-center bg-cover bg-sky-700 rounded-sm h-full w-full p-2 overflow-hidden"
+            className="group h-[60px] relative aspect-video bg-no-repeat bg-center bg-cover bg-sky-700 rounded-sm w-full p-2 overflow-hidden"
             style={{ backgroundImage: `url(${org.imageThumbUrl})` }}
           >
             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" />
-            <p className="relative font-semibold flex flex-col justify-around text-white">
-              {org?.name
-                ? org.name.split(" ")[0].charAt(0).toUpperCase() +
-                  org.name.split(" ")[0].slice(1).toLowerCase()
-                : ""}
+            <p className="relative font-semibold flex align-middle text-white">
               <Logo />
+              <p className="mt-3 -ml-3">
+                {org?.name
+                  ? org.name.split(" ")[0].charAt(0).toUpperCase() +
+                    org.name.split(" ")[0].slice(1).toLowerCase()
+                  : ""}
+              </p>
             </p>
           </Link>
         ))}
         <OrgFormPopover sideOffset={10} side="right">
           <div
             role="button"
-            className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
+            className="h-[60px] bg-gray-300 aspect-video relative w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
           >
             <p className="text-sm">Create new Workspace</p>
             <span className="text-xs"></span>

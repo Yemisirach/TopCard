@@ -14,7 +14,7 @@ interface BoardIdPageProps {
 const BoardIdPage = async ({ params }: BoardIdPageProps) => {
   // const { orgId } = auth();
   // const userId="2021"
-  const orgId = "007164ea-d03f-4919-b03a-51fed02d768f";
+  const orgId = "e153fc92-3787-4c83-a166-1b103a506c4a";
 
   if (!orgId) {
     redirect("/board");

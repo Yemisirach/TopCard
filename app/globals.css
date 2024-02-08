@@ -27,7 +27,7 @@ body {
 }
 .top-card {
   height: 700px;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
 }
 .po {
   background-color: aqua;
@@ -102,4 +102,100 @@ body {
 }
 .login-btn {
   border: 1px rgb(128, 163, 251) solid;
+}
+
+.top-card {
+  height: 630px;
+  /* background-color: #ffffff; */
+}
+.top-cards {
+  height: 630px;
+  background-color: #ffffff;
+}
+.po {
+  background-color: aqua;
+}
+.gap-4,
+.bg-popover {
+  background-color: #ffffff !important;
+}
+.upload-label {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.signins {
+  background-color: rgb(250, 252, 254);
+  margin-bottom: 5rem;
+}
+.loginheader {
+  font-size: 26px;
+  color: #1c2230;
+  margin-bottom: 0.5rem;
+}
+.Top-login-lable {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.Top-inputs {
+  margin-bottom: 1rem;
+  height: 40px;
+}
+.Top-input {
+  color: #212121;
+  background-color: rgb(235, 237, 253);
+  height: 44px;
+  border-radius: 6px;
+}
+.size-sm {
+  font-size: 6px;
+}
+.orginput {
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  border: 1px cornflowerblue solid;
+}
+.Top-input:hover {
+  background-color: rgb(213, 217, 247) !important;
+}
+.top {
+  height: 630px;
+  overflow-y: hidden;
+}
+.sign-ins {
+  margin-top: 3.6rem !important;
+  background-color: #ffffff;
+  border: 1px rgb(0, 72, 255) solid;
+  border-radius: 8px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+.top-nav {
+  font-size: 14px;
+  color: whitesmoke;
+}
+.top-navs {
+  font-size: 14px;
+  color: #000000;
+  border: none;
+}
+.login-btn {
+  border: 1px rgb(128, 163, 251) solid;
+}
+.create-work {
+  color: rgb(39 39 118);
+  border: 1px rgb(39 39 118) solid;
+}
+.top-footer {
+  color: #212121;
 }

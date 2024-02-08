@@ -12,8 +12,8 @@ import { createAuditLog } from "@/lib/create-audit-log";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const userId="2021"
-  const orgId = "007164ea-d03f-4919-b03a-51fed02d768f";
+  const userId = "2021";
+  const orgId = "e153fc92-3787-4c83-a166-1b103a506c4a";
 
   if (!userId || !orgId) {
     return {
@@ -40,11 +40,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: board.id,
       entityType: ENTITY_TYPE.BOARD,
       action: ACTION.UPDATE,
-    })
+    });
   } catch (error) {
     return {
-      error: "Failed to update."
-    }
+      error: "Failed to update.",
+    };
   }
 
   revalidatePath(`/board/${id}`);
