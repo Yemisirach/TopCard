@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { useLocalStorage } from "usehooks-ts";
@@ -13,22 +14,15 @@ interface SidebarProps {
   storageKey?: string;
 }
 
-export const Sidebar = ({
-  storageKey = "t-sidebar-state",
-}: SidebarProps) => {
+export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
   const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
     storageKey,
     {}
   );
 
-  const {
-    organization: activeOrganization,
-    isLoaded: isLoadedOrg,
-  } = useOrganization();
-  const {
-    userMemberships,
-    isLoaded: isLoadedOrgList,
-  } = useOrganizationList();
+  const { organization: activeOrganization, isLoaded: isLoadedOrg } =
+    useOrganization();
+  const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList();
 
   const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
     (acc: string[], key: string) => {
@@ -47,7 +41,12 @@ export const Sidebar = ({
     }));
   };
 
-  if (!isLoadedOrg || !isLoadedOrgList || !userMemberships || userMemberships.isLoading) {
+  if (
+    !isLoadedOrg ||
+    !isLoadedOrgList ||
+    !userMemberships ||
+    userMemberships.isLoading
+  ) {
     return (
       <>
         <div className="flex items-center justify-between mb-2">
@@ -62,6 +61,13 @@ export const Sidebar = ({
       </>
     );
   }
+
+  // Create a mapping of organization IDs to organizations for easier lookup
+  const organizationMap: Record<string, Organization> = {};
+  console.log("🚀 ~ Sidebar ~ organizationMap:", organizationMap);
+  userMemberships.data.forEach((membership) => {
+    organizationMap[membership.organizationId] = membership.organization;
+  });
 
   return (
     <>
@@ -84,15 +90,18 @@ export const Sidebar = ({
         defaultValue={defaultAccordionValue}
         className="space-y-2"
       >
-        {userMemberships?.data.map(({ organization }) => (
-          <NavItem
-            key={organization.id}
-            isActive={activeOrganization?.id === organization.id}
-            isExpanded={expanded[organization.id]}
-            organization={organization as Organization}
-            onExpand={onExpand}
-          />
-        ))}
+        {userMemberships.data.map((membership) => {
+          const organization = organizationMap[membership.organizationId];
+          return (
+            <NavItem
+              key={organization.id}
+              isActive={activeOrganization?.id === organization.id}
+              isExpanded={expanded[organization.id]}
+              organization={organization}
+              onExpand={onExpand}
+            />
+          );
+        })}
       </Accordion>
     </>
   );

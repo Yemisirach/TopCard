@@ -61,29 +61,20 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       where: { id: userId },
       data: { orgId: organization.id },
     });
+
     await createAuditLog({
       entityTitle: organization.name,
       entityId: organization.id,
       entityType: ENTITY_TYPE.ORGANIZATION,
       action: ACTION.CREATE,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating the organization:", error);
-
-    if (
-      error.code === "P2002" &&
-      error.meta?.target?.includes("unique constraint")
-    ) {
-      return {
-        error: "Organization with the same name already exists.",
-      };
-    }
-
     return {
-      error: "Error creating the organization.",
+      error: "An unexpected error occurred while creating the organization.",
     };
   }
-
+  // Move revalidatePath inside the try block
   revalidatePath(`/organization/${organization.id}`);
   return { data: organization };
 };

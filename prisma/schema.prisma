@@ -35,7 +35,7 @@ model Organization {
   boards             Board[]            // Added relationship
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
- permissions        OrganizationPermission[]  // Add permissions field
+  permissions        OrganizationPermission[]  // Add permissions field
 }
 
 model OrganizationPermission {
@@ -45,6 +45,7 @@ model OrganizationPermission {
   role          UserRole     // Role associated with the permission
   // Add other permission-related fields as needed
 }
+
 model OrganizationUser {
   id             String       @id @default(cuid())
   user           User         @relation(fields: [userId], references: [id])
@@ -129,6 +130,7 @@ model Board {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
 model BoardPermission {
   id         String       @id @default(cuid())
   board      Board        @relation(fields: [boardId], references: [id])

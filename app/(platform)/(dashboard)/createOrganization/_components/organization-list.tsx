@@ -7,6 +7,7 @@ import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
 import { OrgFormPopover } from "@/components/form/organization-form-popover";
 import { currentUser } from "@/lib/auth";
+import { Logo } from "@/components/logo";
 
 export const OrganizationList = async () => {
   const user = await currentUser();
@@ -40,11 +41,12 @@ export const OrganizationList = async () => {
             style={{ backgroundImage: `url(${org.imageThumbUrl})` }}
           >
             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" />
-            <p className="relative font-semibold text-white">
+            <p className="relative font-semibold flex flex-col justify-around text-white">
               {org?.name
                 ? org.name.split(" ")[0].charAt(0).toUpperCase() +
                   org.name.split(" ")[0].slice(1).toLowerCase()
                 : ""}
+              <Logo />
             </p>
           </Link>
         ))}

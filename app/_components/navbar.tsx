@@ -9,6 +9,7 @@ import { FormPopover } from "@/components/form/form-popover";
 export const Navbar = async () => {
   const user = await currentUser();
   // console.log(user, "yemit");
+  /* @ts-ignore*/
   const isLoggedIn = user?.isOAuth == true;
   return (
     <div className="top-nav fixed top-0 w-full h-14 px-4 border-b shadow-md bg-gray-100 flex items-center">
@@ -29,8 +30,6 @@ export const Navbar = async () => {
               <div className="mt-4 w-0 gets flex items-center justify-start  Tabsstyles__TabGroup-sc-1grh34k-2 hniXih">
                 <button
                   aria-expanded="false"
-                  data-active="false"
-                  data-testid="bignav-tab"
                   className="pl-7 flex items-center text-center Tabsstyles__Tab-sc-1grh34k-1 fvBJJk"
                 >
                   Workspace

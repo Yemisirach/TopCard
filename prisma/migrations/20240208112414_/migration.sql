@@ -7,6 +7,12 @@ CREATE TYPE "ACTION" AS ENUM ('CREATE', 'UPDATE', 'DELETE');
 -- CreateEnum
 CREATE TYPE "ENTITY_TYPE" AS ENUM ('BOARD', 'LIST', 'CARD', 'ORGANIZATION');
 
+-- CreateEnum
+CREATE TYPE "InvitationStatus" AS ENUM ('PENDING', 'ACCEPTED', 'REVOKED');
+
+-- CreateEnum
+CREATE TYPE "OrganizationEnrollmentMode" AS ENUM ('MANUAL_INVITATION', 'AUTOMATIC_INVITATION', 'AUTOMATIC_SUGGESTION');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -35,6 +41,15 @@ CREATE TABLE "Organization" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Organization_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "OrganizationPermission" (
+    "id" TEXT NOT NULL,
+    "orgId" TEXT NOT NULL,
+    "role" "UserRole" NOT NULL,
+
+    CONSTRAINT "OrganizationPermission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -118,6 +133,15 @@ CREATE TABLE "Board" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Board_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "BoardPermission" (
+    "id" TEXT NOT NULL,
+    "boardId" TEXT NOT NULL,
+    "role" "UserRole" NOT NULL,
+
+    CONSTRAINT "BoardPermission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -240,6 +264,9 @@ CREATE INDEX "UserSettings_orgId_idx" ON "UserSettings"("orgId");
 CREATE UNIQUE INDEX "Invitation_token_key" ON "Invitation"("token");
 
 -- AddForeignKey
+ALTER TABLE "OrganizationPermission" ADD CONSTRAINT "OrganizationPermission_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "OrganizationUser" ADD CONSTRAINT "OrganizationUser_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -253,6 +280,9 @@ ALTER TABLE "TwoFactorConfirmation" ADD CONSTRAINT "TwoFactorConfirmation_userId
 
 -- AddForeignKey
 ALTER TABLE "Board" ADD CONSTRAINT "Board_orgId_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BoardPermission" ADD CONSTRAINT "BoardPermission_boardId_fkey" FOREIGN KEY ("boardId") REFERENCES "Board"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "List" ADD CONSTRAINT "List_boardId_fkey" FOREIGN KEY ("boardId") REFERENCES "Board"("id") ON DELETE CASCADE ON UPDATE CASCADE;

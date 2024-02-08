@@ -1,6 +1,24 @@
-import create from 'zustand';
-import { OrganizationUser } from '@prisma/client';
+import { create } from "zustand";
+import { OrganizationUser } from "@prisma/client";
 
+// Define enums
+enum UserRole {
+  ADMIN = "admin",
+  SUPERADMIN = "super-admin",
+  USER = "user",
+}
+
+enum InvitationStatus {
+  PENDING = "pending",
+  ACCEPTED = "accepted",
+  REVOKED = "revoked",
+}
+
+enum OrganizationEnrollmentMode {
+  MANUAL_INVITATION = "manual_invitation",
+  AUTOMATIC_INVITATION = "automatic_invitation",
+  AUTOMATIC_SUGGESTION = "automatic_suggestion",
+}
 
 interface Board {
   id: string;
@@ -15,6 +33,7 @@ interface Board {
   createdAt: string;
   updatedAt: string;
 }
+
 interface List {
   id: string;
   title: string;
@@ -24,6 +43,7 @@ interface List {
   createdAt: string;
   updatedAt: string;
 }
+
 interface Card {
   id: string;
   title: string;
@@ -34,14 +54,13 @@ interface Card {
   createdAt: string;
   updatedAt: string;
 }
+
 interface ChecklistItem {
   id: string;
   cardId: string;
   checked: boolean;
 }
 
-
-// Define the Organization model
 interface Organization {
   id: string;
   name: string;
@@ -51,155 +70,106 @@ interface Organization {
   imageFullUrl: string;
   imageUserName: string;
   imageLinkHTML: string;
-  members: OrganizationUser[]; 
-  boards: Board[]; 
-  createdAt: string; 
-  updatedAt: string; 
+  members: OrganizationUser[];
+  boards: Board[];
+  createdAt: string;
+  updatedAt: string;
 }
 
-// Define the Membership model
 interface Membership {
   id: string;
   userId: string;
   organizationId: string;
-  role: UserRole; 
-  createdAt: string; 
-  updatedAt: string; 
+  role: UserRole;
+  createdAt: string;
+  updatedAt: string;
+  organization: Organization;
 }
 
-// Define the OrganizationInvitation model
 interface OrganizationInvitation {
   id: string;
-  invitingUserId: string; 
-  invitedEmail: string; 
-  orgId: string; 
-  boardId: string | null; 
-  status: InvitationStatus; 
+  invitingUserId: string;
+  invitedEmail: string;
+  orgId: string;
+  boardId: string | null;
+  status: InvitationStatus;
   token: string;
-  expiry: string; 
+  expiry: string;
 }
 
-// Define the OrganizationDomain model
 interface OrganizationDomain {
   id: string;
-  name: string; 
-  orgId: string; 
-  enrollmentMode: OrganizationEnrollmentMode; 
-  createdAt: string; 
-  updatedAt: string; 
-}
-interface OrganizationMembership {
-    id: string;
-    userId: string;
-    organizationId: string;
-    role: UserRole;
-    createdAt: string;
-    updatedAt: string;
-  }
-  interface OrganizationInvitation {
-    id: string;
-    invitingUserId: string;
-    invitedEmail: string;
-    orgId: string;
-    boardId: string | null;
-    status: InvitationStatus;
-    token: string;
-    expiry: string;
-  }
-  interface OrganizationSuggestion {
-    id: string;
-    suggestingUserId: string;
-    suggestedEmail: string;
-    orgId: string;
-    boardId: string | null;
-    status: SuggestionStatus;
-    token: string;
-    expiry: string;
-  }
-  enum SuggestionStatus {
-    PENDING = 'pending',
-    ACCEPTED = 'accepted',
-    DECLINED = 'declined'
-  }
-  interface OrganizationListState {
-    isLoaded: boolean;
-    userMemberships: PaginatedResources<OrganizationMembership> | null;
-    userInvitations: PaginatedResources<OrganizationInvitation> | null;
-    userSuggestions: PaginatedResources<OrganizationSuggestion> | null;
-  }
-  interface OrganizationState {
-    isLoaded: boolean;
-    activeOrganizationId: string | null; // Add active organization ID
-    organization: Organization | null;
-    membership: Membership | null;
-    invitations: PaginatedResources<OrganizationInvitation> | null;
-    memberships: PaginatedResources<Membership> | null;
-    membershipRequests: PaginatedResources<OrganizationInvitation> | null;
-    domains: PaginatedResources<OrganizationDomain> | null;
-  }
-       
-// Define enums
-enum UserRole {
-  ADMIN = 'admin',
-  SUPERADMIN = 'super-admin',
-  USER = 'user'
-}
-
-enum InvitationStatus {
-  PENDING = 'pending',
-  ACCEPTED = 'accepted',
-  REVOKED = 'revoked'
-}
-
-enum OrganizationEnrollmentMode {
-  MANUAL_INVITATION = 'manual_invitation',
-  AUTOMATIC_INVITATION = 'automatic_invitation',
-  AUTOMATIC_SUGGESTION = 'automatic_suggestion'
+  name: string;
+  orgId: string;
+  enrollmentMode: OrganizationEnrollmentMode;
+  createdAt: string;
+  updatedAt: string;
 }
 
 // Define PaginatedResources interface
-
 interface PaginatedResources<T> {
-    data: T[];
-    count: number;
-    isLoading: boolean;
-    isFetching: boolean;
-    isError: boolean;
-    page: number;
-    pageCount: number;
-    fetchPage: (page: number) => void;
-    fetchPrevious: () => void;
-    fetchNext: () => void;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-  }
-  
+  data: T[];
+  count: number;
+  isLoading: boolean;
+  isFetching: boolean;
+  isError: boolean;
+  page: number;
+  pageCount: number;
+  fetchPage: (page: number) => void;
+  fetchPrevious: () => void;
+  fetchNext: () => void;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+// Define the organization state interface
+interface OrganizationState {
+  isLoaded: boolean;
+  activeOrganizationId: string | null;
+  organization: Organization | null;
+  membership: Membership | null;
+  invitations: PaginatedResources<OrganizationInvitation> | null;
+  memberships: PaginatedResources<Membership> | null;
+  membershipRequests: PaginatedResources<OrganizationInvitation> | null;
+  domains: PaginatedResources<OrganizationDomain> | null;
+}
 
 // Create the organization store
 const useOrganizationStore = create<OrganizationState>((set) => ({
-    isLoaded: false,
-    activeOrganizationId: null, // Initialize active organization ID to null
-    organization: null,
-    membership: null,
-    invitations: null,
-    memberships: null,
-    membershipRequests: null,
-    domains: null,
-  }));
+  isLoaded: false,
+  activeOrganizationId: null, // Initialize active organization ID to null
+  organization: null,
+  membership: null,
+  invitations: null,
+  memberships: null,
+  membershipRequests: null,
+  domains: null,
+}));
 
 // Custom hook to access and update organization state
 const useOrganization = () => useOrganizationStore((state) => state);
 
+// Export the hooks
 export { useOrganization, useOrganizationStore };
 
+// Define the organization list state interface
+interface OrganizationListState {
+  isLoaded: boolean;
+  userMemberships: PaginatedResources<Membership> | null;
+  userInvitations: PaginatedResources<OrganizationInvitation> | null;
+  userSuggestions: PaginatedResources<OrganizationInvitation> | null; // Assuming this is similar to invitations
+}
+
+// Create the organization list store
 const useOrganizationListStore = create<OrganizationListState>((set) => ({
-    isLoaded: false,
-    userMemberships: null,
-    userInvitations: null,
-    userSuggestions: null,
-  }));
-  
-  // Custom hook to access and update organization list state
-  const useOrganizationList = () => useOrganizationListStore((state) => state);
-  
-  export { useOrganizationList, useOrganizationListStore };
+  isLoaded: false,
+  userMemberships: null,
+  userInvitations: null,
+  userSuggestions: null,
+}));
+
+// Custom hook to access and update organization list state
+const useOrganizationList = () => useOrganizationListStore((state) => state);
+
+// Export the hooks
+export { useOrganizationList, useOrganizationListStore };
