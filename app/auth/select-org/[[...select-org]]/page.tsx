@@ -1,41 +1,22 @@
-// import React, { useState } from "react";
-// import OrganizationForm from "@/components/auth/organizationForm";
-// import OrganizationList from "@/components/auth/organizationForm";
-// import { Organization } from "@prisma/client";
-// import OrganizationSwitcher from "@/components/auth/OrganizationSwitcher";
+"use client"
+import React from "react";
+import { useRouter } from "next/navigation";
+import { OrganizationList } from "@/app/(platform)/(dashboard)/createOrganization/_components/organization-list";
 
-// const CreateOrganizationPage: React.FC = () => {
-//   const [organizations, setOrganizations] = useState<Organization[]>([]);
-//   const [selectedOrganization, setSelectedOrganization] =
-//     useState<Organization | null>(null);
+export default function CreateOrganizationPage() {
+  const router = useRouter();
 
-//   const handleCreateOrganization = (newOrganization: Organization) => {
-//     // Add the new organization to the list
-//     setOrganizations((prevOrganizations) => [
-//       ...prevOrganizations,
-//       newOrganization,
-//     ]);
+  // Function to handle redirection
+  const handleRedirect = (url: string) => {
+    router.push(url); // Redirect to the specified URL
+  };
 
-//     // Set the newly created organization as the selected one
-//     setSelectedOrganization(newOrganization);
-//   };
-
-//   const handleSelectOrganization = (organization: Organization) => {
-//     // Set the selected organization
-//     setSelectedOrganization(organization);
-//   };
-
-//   return (
-//     <div>
-//       <OrganizationForm onCreateOrganization={handleCreateOrganization} />
-//       <OrganizationSwitcher
-//         organizations={organizations}
-//         selectedOrganization={selectedOrganization}
-//         onSelectOrganization={handleSelectOrganization}
-//       />
-//       <OrganizationList organizations={organizations} />
-//     </div>
-//   );
-// };
-
-// export default CreateOrganizationPage;
+  return (
+    <OrganizationList
+      afterSelectOrganizationUrl="/organization/:id"
+      onOrganizationSelect={(organizationId: string) =>
+        handleRedirect(`/organization/${organizationId}`)
+      }
+    />
+  );
+}

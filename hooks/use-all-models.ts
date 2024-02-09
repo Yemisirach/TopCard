@@ -1,12 +1,7 @@
 import { create } from "zustand";
-import { OrganizationUser } from "@prisma/client";
+import {  UserRole,Organization } from "@prisma/client";
 
-// Define enums
-enum UserRole {
-  ADMIN = "admin",
-  SUPERADMIN = "super-admin",
-  USER = "user",
-}
+
 
 enum InvitationStatus {
   PENDING = "pending",
@@ -20,61 +15,6 @@ enum OrganizationEnrollmentMode {
   AUTOMATIC_SUGGESTION = "automatic_suggestion",
 }
 
-interface Board {
-  id: string;
-  organizationId: string;
-  title: string;
-  imageId: string;
-  imageThumbUrl: string;
-  imageFullUrl: string;
-  imageUserName: string;
-  imageLinkHTML: string;
-  lists: List[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface List {
-  id: string;
-  title: string;
-  order: number;
-  boardId: string;
-  cards: Card[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface Card {
-  id: string;
-  title: string;
-  order: number;
-  description?: string;
-  listId: string;
-  checklist: ChecklistItem[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface ChecklistItem {
-  id: string;
-  cardId: string;
-  checked: boolean;
-}
-
-interface Organization {
-  id: string;
-  name: string;
-  userId: string;
-  imageId: string;
-  imageThumbUrl: string;
-  imageFullUrl: string;
-  imageUserName: string;
-  imageLinkHTML: string;
-  members: OrganizationUser[];
-  boards: Board[];
-  createdAt: string;
-  updatedAt: string;
-}
 
 interface Membership {
   id: string;
@@ -148,7 +88,7 @@ const useOrganizationStore = create<OrganizationState>((set) => ({
 
 // Custom hook to access and update organization state
 const useOrganization = () => useOrganizationStore((state) => state);
-
+console.log("🚀 ~ useOrganization:", { useOrganization });
 // Export the hooks
 export { useOrganization, useOrganizationStore };
 
@@ -169,7 +109,11 @@ const useOrganizationListStore = create<OrganizationListState>((set) => ({
 }));
 
 // Custom hook to access and update organization list state
-const useOrganizationList = () => useOrganizationListStore((state) => state);
 
+const useOrganizationList = () => {
+  const organizationListState = useOrganizationListStore((state) => state);
+  return organizationListState;
+};
+console.log("🚀 ~ useOrganizationList:", { useOrganizationList });
 // Export the hooks
 export { useOrganizationList, useOrganizationListStore };

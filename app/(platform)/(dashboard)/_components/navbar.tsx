@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export const DashBoardNavbar = async () => {
   const user = await currentUser();
-  console.log(user, "yemit");
+  // console.log(user, "yemit");
   // @ts-ignore
   const isLoggedIn = user?.isOAuth === true;
   const firstName = user?.name

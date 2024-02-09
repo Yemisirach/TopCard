@@ -8,6 +8,7 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import { CreateOrganization } from "./schema";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { useOrganizationListStore } from "@/hooks/use-all-models";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const session = await auth();
@@ -68,6 +69,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityType: ENTITY_TYPE.ORGANIZATION,
       action: ACTION.CREATE,
     });
+    
+    // const updateOrganizationList =
+    //   useOrganizationListStore.getState().updateOrganizationList;
+    // updateOrganizationList(organization);
+
   } catch (error) {
     console.error("Error creating the organization:", error);
     return {

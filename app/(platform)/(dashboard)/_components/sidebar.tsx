@@ -22,7 +22,17 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
 
   const { organization: activeOrganization, isLoaded: isLoadedOrg } =
     useOrganization();
+  console.log("🚀 ~ Sidebar ~ activeOrganization:", activeOrganization);
+  console.log("🚀 ~ Sidebar ~isLoadedOrg:", isLoadedOrg);
+
   const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList();
+  console.log("🚀 ~ Sidebar ~ userMemberships:", userMemberships);
+
+  // const organizationState = useOrganization();
+  // const organizationListState = useOrganizationList();
+
+  // console.log("Organization State:", organizationState);
+  // console.log("Organization List State:", organizationListState);
 
   const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
     (acc: string[], key: string) => {

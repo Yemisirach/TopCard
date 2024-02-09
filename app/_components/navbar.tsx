@@ -8,11 +8,10 @@ import { FormPopover } from "@/components/form/form-popover";
 
 export const Navbar = async () => {
   const user = await currentUser();
-  // console.log(user, "yemit");
   /* @ts-ignore*/
   const isLoggedIn = user?.isOAuth == true;
   return (
-    <div className="top-nav fixed top-0 w-full h-14 px-4 border-b shadow-md bg-gray-100 flex items-center">
+    <div className="top-nav fixed top-0 w-full h-14 px-4 border-b shadow-md  flex items-center">
       <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between">
         {isLoggedIn ? (
           <div className="flex items-center p-1 align-middle">

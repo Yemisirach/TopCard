@@ -57,6 +57,24 @@ model OrganizationUser {
   @@unique([userId, orgId])
 }
 
+enum InvitationStatus {
+  PENDING 
+  ACCEPTED 
+  REVOKED
+}
+
+
+model OrganizationInvitation {
+  id String   @id @default(cuid())
+  invitingUserId String
+  invitedEmail String
+  orgId String
+  boardId String
+  status InvitationStatus
+  token String
+  expiry String
+}
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -185,17 +203,6 @@ enum ENTITY_TYPE {
   ORGANIZATION
 }
 
-enum InvitationStatus {
-  PENDING
-  ACCEPTED
-  REVOKED
-}
-
-enum OrganizationEnrollmentMode {
-  MANUAL_INVITATION
-  AUTOMATIC_INVITATION
-  AUTOMATIC_SUGGESTION
-}
 
 model AuditLog {
   id          String  @id @default(uuid())
