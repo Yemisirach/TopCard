@@ -9,7 +9,7 @@ import { FormPopover } from "@/components/form/form-popover";
 
 export const BoardList = async () => {
   // const userId="2021"
-  const orgId = "2020";
+  const orgId = "07557323-5ff3-476d-8d72-a61dc392a294";
   // const params = useParams();
   // console.log("🚀 ~ BoardList ~ params:", params);
 

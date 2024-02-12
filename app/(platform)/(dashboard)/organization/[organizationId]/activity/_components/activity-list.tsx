@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const ActivityList = async () => {
   // const { orgId } = auth();
   // const userId="2021"
-  const orgId = "2020";
+  const orgId = "07557323-5ff3-476d-8d72-a61dc392a294";
 
   if (!orgId) {
     redirect("/board");
@@ -19,8 +19,8 @@ export const ActivityList = async () => {
       orgId,
     },
     orderBy: {
-      createdAt: "desc"
-    }
+      createdAt: "desc",
+    },
   });
 
   return (

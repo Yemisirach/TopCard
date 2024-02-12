@@ -56,10 +56,10 @@ export const LoginForm = () => {
             setError(data.error);
           }
 
-          if (data?.success) {
-            form.reset();
-            setSuccess(data.success);
-          }
+          // if (data?.success) {
+          //   form.reset();
+          //   setSuccess(data.success);
+          // }
 
           if (data?.twoFactor) {
             setShowTwoFactor(true);
@@ -155,7 +155,7 @@ export const LoginForm = () => {
           <Button
             disabled={isPending}
             type="submit"
-            className="bg-blue-400 Top-inputs w-full"
+            className=" Top-inputs Top-input-un w-full"
           >
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>

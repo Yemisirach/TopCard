@@ -58,6 +58,62 @@ export const useOrganizationList = (): OrganizationListHookResult => {
   return { organizations, isLoaded };
 };
 
+
+
+// Combined store using zustand
+
+// import create from "zustand";
+// import { db } from "@/lib/db";
+// import { Organization } from "./types";
+
+// interface OrganizationStore {
+//   organization: Organization | null;
+//   isOrganizationLoaded: boolean;
+//   fetchOrganization: () => Promise<void>;
+// }
+
+// interface OrganizationListStore {
+//   organizations: Organization[];
+//   isOrganizationListLoaded: boolean;
+//   fetchOrganizationList: () => Promise<void>;
+// }
+
+// // Combined store using zustand
+// interface CombinedStore extends OrganizationStore, OrganizationListStore {}
+
+// const useCombinedStore = create<CombinedStore>((set) => ({
+//   // Organization store
+//   organization: null,
+//   isOrganizationLoaded: false,
+//   fetchOrganization: async () => {
+//     try {
+//       const organizationData = await db.organization.findMany();
+//       const data = organizationData.length > 0 ? organizationData[0] : null;
+//       set({ organization: data, isOrganizationLoaded: true });
+//     } catch (error) {
+//       console.error("Error fetching organization details:", error);
+//       set({ isOrganizationLoaded: true });
+//     }
+//   },
+
+//   // Organization list store
+//   organizations: [],
+//   isOrganizationListLoaded: false,
+//   fetchOrganizationList: async () => {
+//     try {
+//       const organizationData = await db.organization.findMany();
+//       set({ organizations: organizationData, isOrganizationListLoaded: true });
+//     } catch (error) {
+//       console.error("Error fetching organization list:", error);
+//       set({ isOrganizationListLoaded: true });
+//     }
+//   },
+// }));
+
+// export default useCombinedStore;
+
+// CombinedComponent.tsx
+
 // export const useOrganization = (): OrganizationHookResult => {
 //   const [organization, setOrganization] = useState<Organization | null>(null);
 //   const [isLoaded, setIsLoaded] = useState<boolean>(false);

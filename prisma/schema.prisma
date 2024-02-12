@@ -356,6 +356,7 @@ model List {
   cards     Card[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@index([boardId])
 }
 
@@ -370,6 +371,7 @@ model Card {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   checklist   ChecklistItem[]
+
   @@index([listId])
 }
 
@@ -413,6 +415,7 @@ model UserSettings {
   userId  String @db.Text
   orgId   String?
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId])
   @@index([orgId])
 }
@@ -427,3 +430,5 @@ model Invitation {
   token          String  @unique
   expiry         DateTime
 }
+
+

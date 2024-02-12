@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-// import Image from "next/image";
 import {
   Activity,
   Layout,
@@ -17,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Organization } from "@/hooks/types";
+import { Logo } from "@/components/logo";
 interface NavItemProps {
   isExpanded: boolean;
   isActive: boolean;
@@ -76,6 +76,7 @@ export const NavItem = ({
               alt="Organization"
               className="rounded-sm object-cover"
             /> */}
+            <Logo/>
           </div>
           <span className="font-medium text-sm">
             {organization.name}

@@ -27,7 +27,7 @@ export const CardWrapper = ({
 }: CardWrapperProps) => {
   return (
     <Card className="w-[400px] sign-ins shadow-md">
-      <CardHeader>
+      <CardHeader className="login-font">
         <Header label={headerLabel} />
       </CardHeader>
       <CardContent>{children}</CardContent>
