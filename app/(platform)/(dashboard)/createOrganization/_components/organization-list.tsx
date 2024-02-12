@@ -45,7 +45,11 @@ export const OrganizationList: React.FC<OrganizationListProps> & {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-3">
         {organization.map((org) => (
-          <Link key={org.id} href={`/organization/${org.id}`}>
+          <Link
+            key={org.id}
+            href={`/organization/${org.id}`}
+            onClick={() => onOrganizationSelect(org.id)}
+          >
             <div className="group h-[60px] relative aspect-video bg-no-repeat bg-center bg-cover bg-sky-700 rounded-sm w-full p-2 overflow-hidden">
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" />
               <div className="relative font-semibold flex align-middle text-white">
@@ -97,8 +101,6 @@ OrganizationList.Skeleton = function SkeletonBoardList() {
     </div>
   );
 };
-
-
 
 // "use client";
 // import React, { useEffect, useState } from "react";

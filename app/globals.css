@@ -95,10 +95,10 @@ body {
   background-color: #ffffff;
   border: 1px rgb(0, 72, 255) solid;
   border-radius: 8px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5); */
 }
 .top-nav {
-  box-shadow: 10px 10px 10px rgba(92, 111, 254, 0.5);
+  /* box-shadow: 10px 10px 10px rgba(92, 111, 254, 0.5); */
 }
 .login-btn {
   border: 1px rgb(128, 163, 251) solid;

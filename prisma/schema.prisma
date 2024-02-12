@@ -20,6 +20,7 @@ model User {
   isTwoFactorEnabled    Boolean           @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   organizations         OrganizationUser[]
+  orgId                 String?
 }
 
 model Organization {
