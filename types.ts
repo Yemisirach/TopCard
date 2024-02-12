@@ -14,6 +14,7 @@ interface CustomSession extends Session {
     // Define any additional properties you have in your 'auth' object
     // For example:
     userRole: string;
+    orgId: string;
   };
 }
 

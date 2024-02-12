@@ -83,6 +83,7 @@ const SettingsPage = () => {
         sendInvitationEmail(values.email || "", organizationId, boardId, token); // Send invitation email
       } else if (values.role === UserRole.ADMIN) {
         const organizationId = ""; // Provide the organization ID
+         /*@ts-ignore*/
         AdminsendInvitationEmail(values.email || "", organizationId, token);
       } else {
         settings(values)
