@@ -7,10 +7,9 @@ import { BoardNavbar } from "./_components/board-navbar";
 export async function generateMetadata({
   params,
 }: {
-  params: { boardId: string };
+  params: { boardId: string; orgId: string };
 }) {
-  const orgId = "4213bdcc-01e9-4845-9ac8-3844a23ee849";
-
+  const { orgId } = params; 
   if (!orgId) {
     return {
       title: "Board",
@@ -20,7 +19,7 @@ export async function generateMetadata({
   const board = await db.board.findUnique({
     where: {
       id: params.boardId,
-      orgId,
+      orgId: params.orgId,
     },
   });
 
@@ -34,10 +33,9 @@ const BoardIdLayout = async ({
   params,
 }: {
   children: React.ReactNode;
-  params: { boardId: string };
+  params: { boardId: string; orgId: string };
 }) => {
-  const orgId = "4213bdcc-01e9-4845-9ac8-3844a23ee849";
-
+  const { orgId } = params; 
   if (!orgId) {
     redirect("/createOrganization");
   }
@@ -45,7 +43,7 @@ const BoardIdLayout = async ({
   const board = await db.board.findUnique({
     where: {
       id: params.boardId,
-      orgId,
+      orgId: params.orgId,
     },
   });
 
@@ -61,7 +59,7 @@ const BoardIdLayout = async ({
       <BoardNavbar data={board} />
       <div className="absolute inset-0 bg-black/10" />
       <main className="relative pt-28 h-full">
-        {/* {children} */}
+        {children}
         hi yemileeee
       </main>
     </div>

@@ -14,7 +14,7 @@ import { auth } from "@/auth";
 const handler = async (data: InputType): Promise<ReturnType> => {
   const session = await auth();
   const userId = session?.user?.id;
-  const orgId = "de59f818-2b2a-4339-9c58-e2f5301900ab";
+  const orgId = "e153fc92-3787-4c83-a166-1b103a506c4a";
 
   if (!userId || !orgId) {
     return {

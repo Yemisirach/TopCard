@@ -5,9 +5,8 @@ export const SettingsSchema = z
   .object({
     name: z.optional(z.string()),
     isTwoFactorEnabled: z.optional(z.boolean()),
-    role: z.enum([UserRole.ADMIN, UserRole.USER]),
+    role: z.enum([UserRole.ADMIN, UserRole.USER, UserRole.SUPERADMIN]),
     email: z.optional(z.string().email()),
-    orgname: z.optional(z.string()),
     password: z.optional(z.string().min(6)),
     newPassword: z.optional(z.string().min(6)),
   })
@@ -58,12 +57,6 @@ export const LoginSchema = z.object({
     message: "Password is required",
   }),
   code: z.optional(z.string()),
-});
-export const OrgSchema = z.object({
-  orgname: z.string().min(1, {
-    message: "Name is required",
-  }),
-  image: z.optional(z.string()),
 });
 
 export const RegisterSchema = z.object({

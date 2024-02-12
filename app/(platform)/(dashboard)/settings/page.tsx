@@ -32,6 +32,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { UserRole } from "@prisma/client";
+import { AdminsendInvitationEmail, sendInvitationEmail } from "@/lib/mail";
 
 const SettingsPage = () => {
   const user = useCurrentUser();
@@ -57,20 +58,46 @@ const SettingsPage = () => {
   // @ts-ignore
   const isOAuth = user?.isOAuth;
 
-  const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
-    startTransition(() => {
-      settings(values)
-        .then((data) => {
-          if (data.error) {
-            setError(data.error);
-          }
+  // const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
+  //   startTransition(() => {
+  //     settings(values)
+  //       .then((data) => {
+  //         if (data.error) {
+  //           setError(data.error);
+  //         }
 
-          if (data.success) {
-            update();
-            setSuccess(data.success);
-          }
-        })
-        .catch(() => setError("Something went wrong!"));
+  //         if (data.success) {
+  //           update();
+  //           setSuccess(data.success);
+  //         }
+  //       })
+  //       .catch(() => setError("Something went wrong!"));
+  //   });
+  // };
+  const onSubmit = async (values: z.infer<typeof SettingsSchema>) => {
+    startTransition(() => {
+      if (values.role === UserRole.USER) {
+        const organizationId = ""; // Provide the organization ID
+        const boardId = ""; // Provide the board ID
+        const token = ""; // Generate or retrieve the token
+        sendInvitationEmail(values.email || "", organizationId, boardId, token); // Send invitation email
+      } else if (values.role === UserRole.ADMIN) {
+        const organizationId = ""; // Provide the organization ID
+        AdminsendInvitationEmail(values.email || "", organizationId, token);
+      } else {
+        settings(values)
+          .then((data) => {
+            if (data.error) {
+              setError(data.error);
+            }
+
+            if (data.success) {
+              update();
+              setSuccess(data.success);
+            }
+          })
+          .catch(() => setError("Something went wrong!"));
+      }
     });
   };
 

@@ -12,7 +12,7 @@ import { auth } from "@/auth";
 const handler = async (data: InputType): Promise<ReturnType> => {
   const session = await auth();
   const userId = session?.user?.id;
-  const orgId = "07557323-5ff3-476d-8d72-a61dc392a294";
+  const orgId = "e153fc92-3787-4c83-a166-1b103a506c4a";
 
   if (!userId || !orgId) {
     return {
