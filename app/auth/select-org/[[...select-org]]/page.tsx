@@ -1,41 +1,25 @@
-// import React, { useState } from "react";
-// import OrganizationForm from "@/components/auth/organizationForm";
-// import OrganizationList from "@/components/auth/organizationForm";
-// import { Organization } from "@prisma/client";
-// import OrganizationSwitcher from "@/components/auth/OrganizationSwitcher";
+"use client";
+import React from "react";
+import { useRouter } from "next/router"; // Import `useRouter` from 'next/router'
+import { OrganizationList } from "@/app/(platform)/(dashboard)/createOrganization/_components/organization-list";
 
-// const CreateOrganizationPage: React.FC = () => {
-//   const [organizations, setOrganizations] = useState<Organization[]>([]);
-//   const [selectedOrganization, setSelectedOrganization] =
-//     useState<Organization | null>(null);
+export default function CreateOrganizationPage() {
+  const router = useRouter();
+  const { id } = router.query; // Get the organization ID from the URL parameters
 
-//   const handleCreateOrganization = (newOrganization: Organization) => {
-//     // Add the new organization to the list
-//     setOrganizations((prevOrganizations) => [
-//       ...prevOrganizations,
-//       newOrganization,
-//     ]);
+  // Function to handle redirection and save organization ID to local storage
+  const handleOrganizationSelect = (organizationId: string) => {
+    // Save organization ID to local storage
+    localStorage.setItem("organizationId", organizationId);
 
-//     // Set the newly created organization as the selected one
-//     setSelectedOrganization(newOrganization);
-//   };
+    // Redirect to the specified URL
+    router.push(`/organization/${organizationId}`);
+  };
 
-//   const handleSelectOrganization = (organization: Organization) => {
-//     // Set the selected organization
-//     setSelectedOrganization(organization);
-//   };
-
-//   return (
-//     <div>
-//       <OrganizationForm onCreateOrganization={handleCreateOrganization} />
-//       <OrganizationSwitcher
-//         organizations={organizations}
-//         selectedOrganization={selectedOrganization}
-//         onSelectOrganization={handleSelectOrganization}
-//       />
-//       <OrganizationList organizations={organizations} />
-//     </div>
-//   );
-// };
-
-// export default CreateOrganizationPage;
+  return (
+    <OrganizationList
+      afterSelectOrganizationUrl="/organization/:id"
+      onOrganizationSelect={handleOrganizationSelect}
+    />
+  );
+}
