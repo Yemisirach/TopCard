@@ -12,7 +12,7 @@ export const Social = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
 
-  const onClick = (provider: "google" | "microsoft" | "apple") => {
+  const onClick = (provider: "google" | "azure-ad" | "apple") => {
     signIn(provider, {
       callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
@@ -36,7 +36,7 @@ export const Social = () => {
           size="lg"
           className="w-full Top-input"
           variant="outline"
-          onClick={() => onClick("microsoft")}
+          onClick={() => onClick("azure-ad")}
         >
           <FaMicrosoft className="h-5 w-5 m-2" />
           Sign in Microsoft

@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-// import Microsoft from "next-auth/providers/microsoft";
+import AzureADProvider from "next-auth/providers/azure-ad";
 // import  Apple from "next-auth/providers/apple";
 import Google from "next-auth/providers/google";
 
@@ -14,10 +14,11 @@ export default {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    //   Microsoft({
-    //   clientId: process.env.MICROSOFT_CLIENT_ID,
-    //   clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
-    // }),
+    AzureADProvider({
+      clientId: process.env.AZURE_AD_CLIENT_ID,
+      clientSecret: process.env.AZURE_AD_CLIENT_SECRET,
+      tenantId: process.env.AZURE_AD_TENANT_ID,
+    }),
     // Apple({
     //   clientId: process.env.APPLE_CLIENT_ID,
     //   clientSecret: process.env.APPLE_CLIENT_SECRET,
@@ -28,20 +29,17 @@ export default {
 
         if (validatedFields.success) {
           const { email, password } = validatedFields.data;
-          
+
           const user = await getUserByEmail(email);
           if (!user || !user.password) return null;
 
-          const passwordsMatch = await bcrypt.compare(
-            password,
-            user.password,
-          );
+          const passwordsMatch = await bcrypt.compare(password, user.password);
 
           if (passwordsMatch) return user;
         }
 
         return null;
-      }
-    })
+      },
+    }),
   ],
-} satisfies NextAuthConfig
+} satisfies NextAuthConfig;
