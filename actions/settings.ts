@@ -17,13 +17,11 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   if (!user) {
     return { error: "Unauthorized" };
   }
-  /*@ts-ignore*/
   const dbUser = await getUserById(user.id);
 
   if (!dbUser) {
     return { error: "Unauthorized" };
   }
- /*@ts-ignore*/
   if (user.isOAuth) {
     values.email = undefined;
     values.password = undefined;
