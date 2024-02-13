@@ -30,12 +30,18 @@ export const CardWrapper = ({
       <CardHeader className="login-font">
         <Header label={headerLabel} />
       </CardHeader>
-      <CardContent>{children}</CardContent>
       {showSocial && (
         <CardFooter>
           <Social />
         </CardFooter>
       )}
+      <div className="flex ml-5 mr-5 p-2 justify-center align-middle">
+        <hr className="border-gray-200 w-[150px] mt-3 dark:border-gray-700" />
+        <article className="ml-3 mr-3 text-center ">Or</article>
+        <hr className="border-gray-200 w-[150px]  mt-3 dark:border-gray-700" />
+      </div>
+      <CardContent>{children}</CardContent>
+
       <CardFooter>
         <BackButton label={backButtonLabel} href={backButtonHref} />
       </CardFooter>

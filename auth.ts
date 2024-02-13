@@ -20,12 +20,12 @@ export const {
     error: "/auth/error",
   },
   events: {
-    // async linkAccount({ user }) {
-    //   await db.user.update({
-    //     where: { id: user.id },
-    //     data: { emailVerified: new Date() },
-    //   });
-    // },
+    async linkAccount({ user }) {
+      await db.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
+    },
   },
   callbacks: {
     async signIn({ user, account }) {
@@ -54,21 +54,21 @@ export const {
     },
     async session({ token, session }) {
       if (token.sub && session.user) {
-        // session.user.id = token.sub;
+        session.user.id = token.sub;
       }
 
       if (token.role && session.user) {
-        // session.user.role = token.role as UserRole;
+        session.user.role = token.role as UserRole;
       }
 
       if (session.user) {
-        // session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
 
       if (session.user) {
         session.user.name = token.name;
         session.user.email = token.email;
-        // session.user.isOAuth = token.isOAuth as boolean;
+        session.user.isOAuth = token.isOAuth as boolean;
       }
 
       return session;
@@ -79,7 +79,7 @@ export const {
       const existingUser = await getUserById(token.sub);
       if (existingUser) {
         // Assuming that organizationId is a property of the user model
-        // token.orgId = existingUser.orgId;
+        token.orgId = existingUser.orgId;
         // console.log("🚀 ~ jwt ~ token:", token.orgId);
       }
       // console.log("🚀 ~ jwt ~ token:", token.orgId);

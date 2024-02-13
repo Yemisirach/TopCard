@@ -73,7 +73,7 @@ body {
   margin-bottom: 1rem;
   height: 42px;
   background-color: #f4f6f8;
-  border: 1px solid #113b70;
+  /* border: 1px solid #113b70; */
   color: #113b70;
 }
 .Top-input-un {
@@ -87,7 +87,7 @@ body {
 .Top-input {
   color: #113b70;
   background-color: #ffffff;
-  border: 0.5px solid #113b70;
+  /* border: 0.5px solid #113b70; */
   height: 44px;
   border-radius: 6px;
 }
@@ -109,9 +109,9 @@ body {
 .sign-ins {
   margin-top: 3.6rem !important;
   background-color: #ffffff;
-  border: 1px #0070b7 solid;
+  /* border: 1px #0070b7 solid; */
   border-radius: 8px;
-  box-shadow: 5px 5px 5px #e9eff3;
+  box-shadow: 5px 10px 5px #e9eff3;
   width: 400px !important;
 }
 .top-nav {
