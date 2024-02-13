@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
 import { UserRole } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
@@ -23,9 +23,9 @@ export const {
     async linkAccount({ user }) {
       await db.user.update({
         where: { id: user.id },
-        data: { emailVerified: new Date() }
-      })
-    }
+        data: { emailVerified: new Date() },
+      });
+    },
   },
   callbacks: {
     async signIn({ user, account }) {
@@ -38,66 +38,49 @@ export const {
       if (!existingUser?.emailVerified) return false;
 
       if (existingUser.isTwoFactorEnabled) {
-        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id);
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
+          existingUser.id
+        );
 
         if (!twoFactorConfirmation) return false;
 
         // Delete two factor confirmation for next sign in
         await db.twoFactorConfirmation.delete({
-          where: { id: twoFactorConfirmation.id }
+          where: { id: twoFactorConfirmation.id },
         });
       }
 
       return true;
     },
     async session({ token, session }) {
-      if (token.sub && session.user) {
-        session.user.id = token.sub;
-      }
-    
-      if (token.role && session.user) {
-        session.user.role = token.role as UserRole;
-      }
-    
-      if (session.user) {
-        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.organizationId = token.organizationId;
-        session.user.isOAuth = token.isOAuth as boolean;
-      }
-    
-      const organizations = token.organizations || [];
-    
-      // Map the organizations array to include only the organization IDs
-      const organizationIds = organizations.map(org => org.id);
-    
-      // Update the user's session with the array of organization IDs
-      if (session.user) {
-        session.user.organizations = organizationIds;
-      }
-    
+      // if (token.sub && session.user) {
+      //   session.user.id = token.sub;
+      // }
+
+      // if (token.role && session.user) {
+      //   session.user.role = token.role as UserRole;
+      // }
+
+      // if (session.user) {
+      //   session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+      // }
+
+      // if (session.user) {
+      //   session.user.name = token.name;
+      //   session.user.email = token.email;
+      //   session.user.isOAuth = token.isOAuth as boolean;
+      // }
+
       return session;
     },
-    
     async jwt({ token }) {
       if (!token.sub) return token;
 
       const existingUser = await getUserById(token.sub);
-<<<<<<< HEAD
-=======
-      if (existingUser) {
-        // Assuming that organizationId is a property of the user model
-        token.orgId = existingUser.orgId;
-      }
-     
->>>>>>> 57ce65e851d127fa4bbee5a278b383a6ab3505c6
 
       if (!existingUser) return token;
 
-      const existingAccount = await getAccountByUserId(
-        existingUser.id
-      );
+      const existingAccount = await getAccountByUserId(existingUser.id);
 
       token.isOAuth = !!existingAccount;
       token.name = existingUser.name;
@@ -106,7 +89,7 @@ export const {
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
 
       return token;
-    }
+    },
   },
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },

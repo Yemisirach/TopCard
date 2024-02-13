@@ -424,7 +424,7 @@ model Invitation {
   id            String   @id @default(cuid())
   invitingUserId  String
   invitedEmail  String
-  orgId  String
+  orgId          String
   boardId        String?
   status         String
   token          String  @unique

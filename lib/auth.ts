@@ -8,7 +8,7 @@ export const currentUser = async () => {
 
 export const currentRole = async () => {
   const session = await auth();
-  console.log("🚀 ~ currentRole ~ session:", session)
-// @ts-ignore
+//   console.log("🚀 ~ currentRole ~ session:", session)
+// // @ts-ignore
   return session?.user?.role;
 };
